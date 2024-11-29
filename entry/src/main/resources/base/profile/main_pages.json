@@ -1,0 +1,7 @@
+{
+  "src": [
+    "pages/serverPage",
+    "pages/globalOptionsPage",
+    "pages/taskPage"
+  ]
+}

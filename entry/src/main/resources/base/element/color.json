@@ -1,0 +1,16 @@
+{
+  "color": [
+    {
+      "name": "start_window_background",
+      "value": "#FFFFFF"
+    },
+    {
+      "name": "icon_button_active_color",
+      "value": "#FFFFE700"
+    },
+    {
+      "name": "icon_button_color",
+      "value": "#FFB3ECCA"
+    }
+  ]
+}

@@ -1,0 +1,1205 @@
+{
+  "globalOptionFields": [
+    {
+      "title": "base",
+      "fields": [
+        {
+          "key": "version",
+          "type": "input",
+          "dataType": "string",
+          "readOnly": true
+        },
+        {
+          "key": "enabled-features",
+          "type": "list",
+          "dataType": "string",
+          "readOnly": true
+        },
+        {
+          "key": "dir",
+          "type": "input",
+          "dataType": "string",
+          "readOnly": false
+        },
+        {
+          "key": "log",
+          "type": "input",
+          "dataType": "string",
+          "readOnly": false
+        },
+        {
+          "key": "max-concurrent-downloads",
+          "type": "input",
+          "dataType": "int",
+          "readOnly": false
+        },
+        {
+          "key": "check-integrity",
+          "type": "switch",
+          "dataType": "bool",
+          "readOnly": false
+        },
+        {
+          "key": "continue",
+          "type": "switch",
+          "dataType": "bool",
+          "readOnly": false
+        }
+      ]
+    },
+    {
+      "title": "HTTP/SFTP/FTP",
+      "fields": [
+        {
+          "key": "all-proxy",
+          "type": "input",
+          "dataType": "string",
+          "readOnly": false
+        },
+        {
+          "key": "all-proxy-user",
+          "type": "input",
+          "dataType": "string",
+          "readOnly": false
+        },
+        {
+          "key": "all-proxy-passwd",
+          "type": "input",
+          "dataType": "string",
+          "readOnly": false
+        },
+        {
+          "key": "connect-timeout",
+          "type": "input",
+          "dataType": "second",
+          "readOnly": false
+        },
+        {
+          "key": "dry-run",
+          "type": "switch",
+          "dataType": "bool",
+          "readOnly": false
+        },
+        {
+          "key": "lowest-speed-limit",
+          "type": "input",
+          "dataType": "bytes",
+          "readOnly": false
+        },
+        {
+          "key": "max-connection-per-server",
+          "type": "input",
+          "dataType": "int",
+          "readOnly": false
+        },
+        {
+          "key": "max-file-not-found",
+          "type": "input",
+          "dataType": "int",
+          "readOnly": false
+        },
+        {
+          "key": "max-tries",
+          "type": "input",
+          "dataType": "int",
+          "readOnly": false
+        },
+        {
+          "key": "min-split-size",
+          "type": "input",
+          "dataType": "bytes",
+          "readOnly": false
+        },
+        {
+          "key": "netrc-path",
+          "type": "input",
+          "dataType": "string",
+          "readOnly": false
+        },
+        {
+          "key": "no-netrc",
+          "type": "switch",
+          "dataType": "bool",
+          "readOnly": false
+        },
+        {
+          "key": "no-proxy",
+          "type": "list",
+          "dataType": "string",
+          "readOnly": false
+        },
+        {
+          "key": "proxy-method",
+          "type": "select",
+          "dataType": "string",
+          "readOnly": false,
+          "options": [
+            {
+              "label": "GET",
+              "value": "get"
+            },
+            {
+              "label": "TUNNEL",
+              "value": "tunnel"
+            }
+          ]
+        },
+        {
+          "key": "remote-time",
+          "type": "switch",
+          "dataType": "bool",
+          "readOnly": false
+        },
+        {
+          "key": "reuse-uri",
+          "type": "switch",
+          "dataType": "bool",
+          "readOnly": false
+        },
+        {
+          "key": "retry-wait",
+          "type": "input",
+          "dataType": "second",
+          "readOnly": false
+        },
+        {
+          "key": "server-stat-of",
+          "type": "input",
+          "dataType": "string",
+          "readOnly": false
+        },
+        {
+          "key": "server-stat-timeout",
+          "type": "input",
+          "dataType": "bool",
+          "readOnly": true
+        },
+        {
+          "key": "split",
+          "type": "input",
+          "dataType": "int",
+          "readOnly": false
+        },
+        {
+          "key": "stream-piece-selector",
+          "type": "select",
+          "dataType": "string",
+          "readOnly": false,
+          "options": [
+            {
+              "label": "DEFAULT",
+              "value": "default"
+            },
+            {
+              "label": "INORDER",
+              "value": "inorder"
+            },
+            {
+              "label": "RANDOM",
+              "value": "random"
+            },
+            {
+              "label": "GEOM",
+              "value": "geom"
+            }
+          ]
+        },
+        {
+          "key": "timeout",
+          "type": "input",
+          "dataType": "second",
+          "readOnly": false
+        },
+        {
+          "key": "uri-selector",
+          "type": "select",
+          "dataType": "string",
+          "readOnly": false,
+          "options": [
+            {
+              "label": "INORDER",
+              "value": "inorder"
+            },
+            {
+              "label": "FEEDBACK",
+              "value": "feedback"
+            },
+            {
+              "label": "ADAPTIVE",
+              "value": "adaptive"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "HTTP",
+      "fields": [
+        {
+          "key": "check-certificate",
+          "type": "switch",
+          "dataType": "bool",
+          "readOnly": false
+        },
+        {
+          "key": "http-accept-gzip",
+          "type": "switch",
+          "dataType": "bool",
+          "readOnly": false
+        },
+        {
+          "key": "http-auth-challenge",
+          "type": "switch",
+          "dataType": "bool",
+          "readOnly": false
+        },
+        {
+          "key": "http-no-cache",
+          "type": "switch",
+          "dataType": "bool",
+          "readOnly": false
+        },
+        {
+          "key": "http-user",
+          "type": "input",
+          "dataType": "string",
+          "readOnly": false
+        },
+        {
+          "key": "http-passwd",
+          "type": "input",
+          "dataType": "string",
+          "readOnly": false
+        },
+        {
+          "key": "http-proxy",
+          "type": "input",
+          "dataType": "string",
+          "readOnly": false
+        },
+        {
+          "key": "http-proxy-user",
+          "type": "input",
+          "dataType": "string",
+          "readOnly": false
+        },
+        {
+          "key": "http-proxy-passwd",
+          "type": "input",
+          "dataType": "string",
+          "readOnly": false
+        },
+        {
+          "key": "https-passwd",
+          "type": "input",
+          "dataType": "string",
+          "readOnly": false
+        },
+        {
+          "key": "https-proxy",
+          "type": "input",
+          "dataType": "string",
+          "readOnly": false
+        },
+        {
+          "key": "https-proxy-user",
+          "type": "input",
+          "dataType": "string",
+          "readOnly": false
+        },
+        {
+          "key": "https-proxy-passwd",
+          "type": "input",
+          "dataType": "string",
+          "readOnly": false
+        },
+        {
+          "key": "referer",
+          "type": "input",
+          "dataType": "string",
+          "readOnly": false
+        },
+        {
+          "key": "enable-http-keep-alive",
+          "type": "switch",
+          "dataType": "bool",
+          "readOnly": false
+        },
+        {
+          "key": "enable-http-pipelining",
+          "type": "switch",
+          "dataType": "bool",
+          "readOnly": false
+        },
+        {
+          "key": "header",
+          "type": "input",
+          "dataType": "string",
+          "readOnly": false
+        },
+        {
+          "key": "save-cookies",
+          "type": "input",
+          "dataType": "string",
+          "readOnly": false
+        },
+        {
+          "key": "use-head",
+          "type": "switch",
+          "dataType": "bool",
+          "readOnly": false
+        },
+        {
+          "key": "user-agent",
+          "type": "input",
+          "dataType": "string",
+          "readOnly": false
+        }
+      ]
+    },
+    {
+      "title": "FTP/SFTP",
+      "fields": [
+        {
+          "key": "ftp-user",
+          "type": "input",
+          "dataType": "string",
+          "readOnly": false
+        },
+        {
+          "key": "ftp-passwd",
+          "type": "input",
+          "dataType": "string",
+          "readOnly": false
+        },
+        {
+          "key": "ftp-proxy",
+          "type": "input",
+          "dataType": "string",
+          "readOnly": false
+        },
+        {
+          "key": "ftp-proxy-user",
+          "type": "input",
+          "dataType": "string",
+          "readOnly": false
+        },
+        {
+          "key": "ftp-proxy-passwd",
+          "type": "input",
+          "dataType": "string",
+          "readOnly": false
+        },
+        {
+          "key": "ftp-pasv",
+          "type": "switch",
+          "dataType": "bool",
+          "readOnly": false
+        },
+        {
+          "key": "ftp-type",
+          "type": "select",
+          "dataType": "string",
+          "readOnly": false,
+          "options": [
+            {
+              "label": "BINARY",
+              "value": "binary"
+            },
+            {
+              "label": "ASCII",
+              "value": "ascii"
+            }
+          ]
+        },
+        {
+          "key": "ftp-reuse-connection",
+          "type": "switch",
+          "dataType": "bool",
+          "readOnly": false
+        },
+        {
+          "key": "ssh-host-key-md",
+          "type": "input",
+          "dataType": "string",
+          "readOnly": false
+        }
+      ]
+    },
+    {
+      "title": "BT",
+      "fields": [
+        {
+          "key": "bt-detach-seed-only",
+          "type": "switch",
+          "dataType": "bool",
+          "readOnly": true
+        },
+        {
+          "key": "bt-enable-hook-after-hash-check",
+          "type": "switch",
+          "dataType": "bool",
+          "readOnly": false
+        },
+        {
+          "key": "bt-enable-lpd",
+          "type": "switch",
+          "dataType": "bool",
+          "readOnly": false
+        },
+        {
+          "key": "bt-exclude-tracker",
+          "type": "input",
+          "dataType": "string",
+          "readOnly": false
+        },
+        {
+          "key": "bt-external-ip",
+          "type": "input",
+          "dataType": "string",
+          "readOnly": false
+        },
+        {
+          "key": "bt-force-encryption",
+          "type": "switch",
+          "dataType": "bool",
+          "readOnly": false
+        },
+        {
+          "key": "bt-hash-check-seed",
+          "type": "switch",
+          "dataType": "bool",
+          "readOnly": false
+        },
+        {
+          "key": "bt-load-saved-metadata",
+          "type": "switch",
+          "dataType": "bool",
+          "readOnly": false
+        },
+        {
+          "key": "bt-max-open-files",
+          "type": "input",
+          "dataType": "int",
+          "readOnly": false
+        },
+        {
+          "key": "bt-max-peers",
+          "type": "input",
+          "dataType": "int",
+          "readOnly": false
+        },
+        {
+          "key": "bt-metadata-only",
+          "type": "switch",
+          "dataType": "bool",
+          "readOnly": false
+        },
+        {
+          "key": "bt-min-crypto-level",
+          "type": "select",
+          "dataType": "string",
+          "readOnly": false,
+          "options": [
+            {
+              "label": "明文",
+              "value": "plain"
+            },
+            {
+              "label": "ARC4",
+              "value": "arc4"
+            }
+          ]
+        },
+        {
+          "key": "bt-prioritize-piece",
+          "type": "input",
+          "dataType": "string",
+          "readOnly": false
+        },
+        {
+          "key": "bt-remove-unselected-file",
+          "type": "switch",
+          "dataType": "bool",
+          "readOnly": false
+        },
+        {
+          "key": "bt-require-crypto",
+          "type": "switch",
+          "dataType": "bool",
+          "readOnly": false
+        },
+        {
+          "key": "bt-request-peer-speed-limit",
+          "type": "input",
+          "dataType": "bytes",
+          "readOnly": false
+        },
+        {
+          "key": "bt-save-metadata",
+          "type": "switch",
+          "dataType": "bool",
+          "readOnly": false
+        },
+        {
+          "key": "bt-seed-unverified",
+          "type": "switch",
+          "dataType": "bool",
+          "readOnly": false
+        },
+        {
+          "key": "bt-stop-timeout",
+          "type": "input",
+          "dataType": "second",
+          "readOnly": false
+        },
+        {
+          "key": "bt-tracker",
+          "type": "list",
+          "dataType": "string",
+          "readOnly": false
+        },
+        {
+          "key": "bt-tracker-connect-timeout",
+          "type": "input",
+          "dataType": "second",
+          "readOnly": false
+        },
+        {
+          "key": "bt-tracker-interval",
+          "type": "input",
+          "dataType": "int",
+          "readOnly": false
+        },
+        {
+          "key": "bt-tracker-timeout",
+          "type": "input",
+          "dataType": "second",
+          "readOnly": false
+        },
+        {
+          "key": "dht-file-path",
+          "type": "input",
+          "dataType": "string",
+          "readOnly": true
+        },
+        {
+          "key": "dht-file-path6",
+          "type": "input",
+          "dataType": "string",
+          "readOnly": true
+        },
+        {
+          "key": "dht-listen-port",
+          "type": "input",
+          "dataType": "string",
+          "readOnly": true
+        },
+        {
+          "key": "dht-message-timeout",
+          "type": "input",
+          "dataType": "int",
+          "readOnly": true
+        },
+        {
+          "key": "enable-dht",
+          "type": "switch",
+          "dataType": "bool",
+          "readOnly": true
+        },
+        {
+          "key": "enable-dht6",
+          "type": "switch",
+          "dataType": "bool",
+          "readOnly": true
+        },
+        {
+          "key": "enable-peer-exchange",
+          "type": "switch",
+          "dataType": "bool",
+          "readOnly": false
+        },
+        {
+          "key": "follow-torrent",
+          "type": "switch",
+          "dataType": "bool",
+          "readOnly": false
+        },
+        {
+          "key": "listen-port",
+          "type": "input",
+          "dataType": "int",
+          "readOnly": true
+        },
+        {
+          "key": "max-overall-upload-limit",
+          "type": "input",
+          "dataType": "bytes",
+          "readOnly": false
+        },
+        {
+          "key": "max-upload-limit",
+          "type": "input",
+          "dataType": "bytes",
+          "readOnly": false
+        },
+        {
+          "key": "peer-id-prefix",
+          "type": "input",
+          "dataType": "string",
+          "readOnly": true
+        },
+        {
+          "key": "peer-agent",
+          "type": "input",
+          "dataType": "string",
+          "readOnly": true
+        },
+        {
+          "key": "seed-ratio",
+          "type": "input",
+          "dataType": "double",
+          "readOnly": false
+        },
+        {
+          "key": "seed-time",
+          "type": "input",
+          "dataType": "minute",
+          "readOnly": false
+        }
+      ]
+    },
+    {
+      "title": "METALINK",
+      "fields": [
+        {
+          "key": "follow-metalink",
+          "type": "switch",
+          "dataType": "bool",
+          "readOnly": false
+        },
+        {
+          "key": "metalink-base-url",
+          "type": "input",
+          "dataType": "string",
+          "readOnly": false
+        },
+        {
+          "key": "metalink-language",
+          "type": "input",
+          "dataType": "string",
+          "readOnly": false
+        },
+        {
+          "key": "metalink-location",
+          "type": "input",
+          "dataType": "string",
+          "readOnly": false
+        },
+        {
+          "key": "metalink-os",
+          "type": "input",
+          "dataType": "string",
+          "readOnly": false
+        },
+        {
+          "key": "metalink-version",
+          "type": "input",
+          "dataType": "string",
+          "readOnly": false
+        },
+        {
+          "key": "metalink-preferred-protocol",
+          "type": "select",
+          "dataType": "string",
+          "readOnly": false,
+          "options": [
+            {
+              "label": "HTTP",
+              "value": "http"
+            },
+            {
+              "label": "HTTPS",
+              "value": "https"
+            },
+            {
+              "label": "FTP",
+              "value": "ftp"
+            },
+            {
+              "label": "无",
+              "value": "none"
+            }
+          ]
+        },
+        {
+          "key": "metalink-enable-unique-protocol",
+          "type": "switch",
+          "dataType": "bool",
+          "readOnly": false
+        }
+      ]
+    },
+    {
+      "title": "RPC",
+      "fields": [
+        {
+          "key": "enable-rpc",
+          "type": "switch",
+          "dataType": "bool",
+          "readOnly": false
+        },
+        {
+          "key": "rpc-allow-origin-all",
+          "type": "switch",
+          "dataType": "bool",
+          "readOnly": false
+        },
+        {
+          "key": "rpc-listen-all",
+          "type": "switch",
+          "dataType": "bool",
+          "readOnly": false
+        },
+        {
+          "key": "rpc-save-upload-metadata",
+          "type": "switch",
+          "dataType": "bool",
+          "readOnly": false
+        },
+        {
+          "key": "rpc-secure",
+          "type": "switch",
+          "dataType": "bool",
+          "readOnly": false
+        },
+        {
+          "key": "pause-metadata",
+          "type": "switch",
+          "dataType": "bool",
+          "readOnly": false
+        },
+        {
+          "key": "rpc-listen-port",
+          "type": "input",
+          "dataType": "int",
+          "readOnly": false
+        },
+        {
+          "key": "rpc-max-request-size",
+          "type": "input",
+          "dataType": "int",
+          "readOnly": false
+        }
+      ]
+    },
+    {
+      "title": "ADVANCE",
+      "fields": [
+        {
+          "key": "allow-overwrite",
+          "type": "switch",
+          "dataType": "bool",
+          "readOnly": false
+        },
+        {
+          "key": "allow-piece-length-change",
+          "type": "switch",
+          "dataType": "bool",
+          "readOnly": false
+        },
+        {
+          "key": "always-resume",
+          "type": "switch",
+          "dataType": "bool",
+          "readOnly": false
+        },
+        {
+          "key": "async-dns",
+          "type": "switch",
+          "dataType": "bool",
+          "readOnly": false
+        },
+        {
+          "key": "auto-file-renaming",
+          "type": "switch",
+          "dataType": "bool",
+          "readOnly": false
+        },
+        {
+          "key": "auto-save-interval",
+          "type": "input",
+          "dataType": "second",
+          "readOnly": false
+        },
+        {
+          "key": "conditional-get",
+          "type": "switch",
+          "dataType": "bool",
+          "readOnly": false
+        },
+        {
+          "key": "conf-path",
+          "type": "input",
+          "dataType": "string",
+          "readOnly": true
+        },
+        {
+          "key": "console-log-level",
+          "type": "select",
+          "dataType": "string",
+          "readOnly": true,
+          "options": [
+            {
+              "label": "DEBUG",
+              "value": "debug"
+            },
+            {
+              "label": "INFO",
+              "value": "info"
+            },
+            {
+              "label": "NOTICE",
+              "value": "notice"
+            },
+            {
+              "label": "WARN",
+              "value": "warn"
+            },
+            {
+              "label": "ERROR",
+              "value": "error"
+            }
+          ]
+        },
+        {
+          "key": "content-disposition-default-utf8",
+          "type": "switch",
+          "dataType": "bool",
+          "readOnly": false
+        },
+        {
+          "key": "daemon",
+          "type": "switch",
+          "dataType": "bool",
+          "readOnly": true
+        },
+        {
+          "key": "deferred-input",
+          "type": "switch",
+          "dataType": "bool",
+          "readOnly": true
+        },
+        {
+          "key": "readOnly-ipv6",
+          "type": "switch",
+          "dataType": "bool",
+          "readOnly": true
+        },
+        {
+          "key": "disk-cache",
+          "type": "input",
+          "dataType": "int",
+          "readOnly": true
+        },
+        {
+          "key": "download-result",
+          "type": "select",
+          "dataType": "string",
+          "readOnly": false,
+          "options": [
+            {
+              "label": "DEFAULT",
+              "value": "default"
+            },
+            {
+              "label": "FULL",
+              "value": "full"
+            },
+            {
+              "label": "HIDE",
+              "value": "hide"
+            }
+          ]
+        },
+        {
+          "key": "dscp",
+          "type": "input",
+          "dataType": "int",
+          "readOnly": true
+        },
+        {
+          "key": "rlimit-nofile",
+          "type": "input",
+          "dataType": "int",
+          "readOnly": true
+        },
+        {
+          "key": "enable-color",
+          "type": "switch",
+          "dataType": "bool",
+          "readOnly": true
+        },
+        {
+          "key": "enable-mmap",
+          "type": "switch",
+          "dataType": "bool",
+          "readOnly": false
+        },
+        {
+          "key": "event-poll",
+          "type": "select",
+          "dataType": "string",
+          "readOnly": true,
+          "options": [
+            {
+              "label": "EPOLL",
+              "value": "epoll"
+            },
+            {
+              "label": "KQUEUE",
+              "value": "kqueue"
+            },
+            {
+              "label": "PORT",
+              "value": "port"
+            },
+            {
+              "label": "POLL",
+              "value": "poll"
+            },
+            {
+              "label": "SELECT",
+              "value": "select"
+            }
+          ]
+        },
+        {
+          "key": "file-allocation",
+          "type": "select",
+          "dataType": "string",
+          "readOnly": false,
+          "options": [
+            {
+              "label": "NONE",
+              "value": "none"
+            },
+            {
+              "label": "PREALLOC",
+              "value": "prealloc"
+            },
+            {
+              "label": "FALLOC",
+              "value": "falloc"
+            },
+            {
+              "label": "TRUNC",
+              "value": "trunc"
+            }
+          ]
+        },
+        {
+          "key": "force-save",
+          "type": "switch",
+          "dataType": "bool",
+          "readOnly": false
+        },
+        {
+          "key": "save-not-found",
+          "type": "switch",
+          "dataType": "bool",
+          "readOnly": false
+        },
+        {
+          "key": "hash-check-only",
+          "type": "switch",
+          "dataType": "bool",
+          "readOnly": false
+        },
+        {
+          "key": "human-readable",
+          "type": "switch",
+          "dataType": "bool",
+          "readOnly": true
+        },
+        {
+          "key": "keep-unfinished-download-result",
+          "type": "switch",
+          "dataType": "bool",
+          "readOnly": false
+        },
+        {
+          "key": "max-download-result",
+          "type": "input",
+          "dataType": "int",
+          "readOnly": false
+        },
+        {
+          "key": "max-mmap-limit",
+          "type": "input",
+          "dataType": "int",
+          "readOnly": false
+        },
+        {
+          "key": "max-resume-failure-tries",
+          "type": "input",
+          "dataType": "int",
+          "readOnly": false
+        },
+        {
+          "key": "min-tls-version",
+          "type": "select",
+          "dataType": "string",
+          "readOnly": true,
+          "options": [
+            {
+              "label": "TLSv1.1",
+              "value": "TLSv1.1"
+            },
+            {
+              "label": "TLSv1.2",
+              "value": "TLSv1.2"
+            },
+            {
+              "label": "TLSv1.3",
+              "value": "TLSv1.3"
+            }
+          ]
+        },
+        {
+          "key": "log-level",
+          "type": "select",
+          "dataType": "string",
+          "readOnly": false,
+          "options": [
+            {
+              "label": "DEBUG",
+              "value": "debug"
+            },
+            {
+              "label": "INFO",
+              "value": "info"
+            },
+            {
+              "label": "NOTICE",
+              "value": "notice"
+            },
+            {
+              "label": "WARN",
+              "value": "warn"
+            },
+            {
+              "label": "ERROR",
+              "value": "error"
+            }
+          ]
+        },
+        {
+          "key": "optimize-concurrent-downloads",
+          "type": "switch",
+          "dataType": "bool",
+          "readOnly": false
+        },
+        {
+          "key": "piece-length",
+          "type": "input",
+          "dataType": "bytes",
+          "readOnly": false
+        },
+        {
+          "key": "show-console-readout",
+          "type": "switch",
+          "dataType": "bool",
+          "readOnly": true
+        },
+        {
+          "key": "summary-interval",
+          "type": "input",
+          "dataType": "second",
+          "readOnly": true
+        },
+        {
+          "key": "max-overall-download-limit",
+          "type": "input",
+          "dataType": "bytes",
+          "readOnly": false
+        },
+        {
+          "key": "max-download-limit",
+          "type": "input",
+          "dataType": "bytes",
+          "readOnly": false
+        },
+        {
+          "key": "no-conf",
+          "type": "switch",
+          "dataType": "bool",
+          "readOnly": true
+        },
+        {
+          "key": "no-file-allocation-limit",
+          "type": "input",
+          "dataType": "second",
+          "readOnly": false
+        },
+        {
+          "key": "parameterized-uri",
+          "type": "switch",
+          "dataType": "bool",
+          "readOnly": false
+        },
+        {
+          "key": "quiet",
+          "type": "switch",
+          "dataType": "bool",
+          "readOnly": true
+        },
+        {
+          "key": "realtime-chunk-checksum",
+          "type": "switch",
+          "dataType": "bool",
+          "readOnly": false
+        },
+        {
+          "key": "remove-control-file",
+          "type": "switch",
+          "dataType": "bool",
+          "readOnly": false
+        },
+        {
+          "key": "save-session",
+          "type": "input",
+          "dataType": "string",
+          "readOnly": false
+        },
+        {
+          "key": "save-session-interval",
+          "type": "input",
+          "dataType": "second",
+          "readOnly": true
+        },
+        {
+          "key": "socket-recv-buffer-size",
+          "type": "input",
+          "dataType": "bytes",
+          "readOnly": true
+        },
+        {
+          "key": "stop",
+          "type": "input",
+          "dataType": "second",
+          "readOnly": true
+        },
+        {
+          "key": "truncate-console-readout",
+          "type": "switch",
+          "dataType": "bool",
+          "readOnly": true
+        }
+      ]
+    }
+  ]
+}
+
+
+
