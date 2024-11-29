@@ -1,5 +1,5 @@
 import Form, { FormItemType } from './form/Form';
-import { promptAction } from '@kit.ArkUI';
+import { promptAction, SymbolGlyphModifier } from '@kit.ArkUI';
 import RpcService from '../service/RpcService';
 import Aria2 from '../model/Aria2';
 import LoadingWidget from './LoadingWidget';
@@ -21,6 +21,7 @@ export default struct ServerEditSheet {
 
   aboutToDisappear(): void {
 
+    console.log("close")
   }
 
   @Builder
@@ -31,10 +32,18 @@ export default struct ServerEditSheet {
 
   aboutToAppear(): void {
     this.serverEditSheetRef?.bind(this)
+
+  }
+
+  initModel() {
     if (this.aria2) {
       this.model.set('name', this.aria2.name);
       this.model.set('url', this.aria2.url);
       this.model.set('secret', this.aria2.secret);
+    } else {
+      this.model = new Map([
+        ['name', ""], ['url', ""], ['secret', ""]
+      ]);
     }
   }
 
@@ -45,10 +54,16 @@ export default struct ServerEditSheet {
       this.open();
     }).bindSheet(this.showSheet, this.buildContent()
       , {
+        onAppear: () => {
+          this.initModel();
+        },
+        onDisappear: () => {
+          this.model.clear();
+        },
         height: SheetSize.LARGE,
         blurStyle: BlurStyle.Thin,
-        title: this.buildTopBar(),
-        showClose: true,
+        // title: this.buildTopBar(),
+        showClose: false,
         backgroundColor: '#ffd9d9d9',
         onWillDismiss: (action) => {
           this.getUIContext().showAlertDialog({
@@ -89,13 +104,13 @@ export default struct ServerEditSheet {
       },
       onError: () => {
         if (this.dialogId) {
-           setTimeout(() => {
+          setTimeout(() => {
             promptAction.closeCustomDialog(this.dialogId);
           }, 500)
         }
       },
       promise: new Promise<boolean>((resolve, reject) => {
-         setTimeout(() => {
+        setTimeout(() => {
           RpcService.connect(this.createAria2()).then(data => {
             resolve(true);
           }).catch(() => {
@@ -127,13 +142,13 @@ export default struct ServerEditSheet {
         }
 
       }).fontColor(Color.Blue)
-      Blank()
-    }.width('100%').justifyContent(FlexAlign.SpaceBetween)
+    }.width('100%').justifyContent(FlexAlign.End)
 
   }
 
   @Builder
   buildContent() {
+    Navigation(){
     Column() {
       Form({
         formRef: this.formRef,
@@ -172,6 +187,29 @@ export default struct ServerEditSheet {
       })
 
     }
+    }.title('新增').titleMode(NavigationTitleMode.Mini)
+    .menus([
+      {
+        value:'测试',
+        symbolIcon:new SymbolGlyphModifier($r('sys.symbol.connection')),
+        action:()=>{
+          if (this.formRef.value?.validate()) {
+            promptAction.openCustomDialog({
+              builder: () => {
+                this.buildLoadingWidget()
+              },
+              width: 200,
+              height: 200,
+              backgroundBlurStyle: BlurStyle.BACKGROUND_THIN,
+              autoCancel: false
+            }).then((id) => {
+              this.dialogId = id;
+            })
+          }
+        }
+      }
+    ])
+    .margin({top:10})
   }
 
   @LocalBuilder

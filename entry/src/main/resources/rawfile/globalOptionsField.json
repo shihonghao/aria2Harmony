@@ -1,7 +1,7 @@
 {
   "globalOptionFields": [
     {
-      "title": "base",
+      "title": "BASE",
       "fields": [
         {
           "key": "version",
@@ -1195,6 +1195,246 @@
           "type": "switch",
           "dataType": "bool",
           "readOnly": true
+        }
+      ]
+    }
+  ],
+  "taskOptionFields": [
+    {
+      "title": "GLOBAL",
+      "fields": [
+
+        {
+          "key": "dir",
+          "type": "input",
+          "dataType": "string",
+          "readOnly": false
+        },
+        {
+          "key": "max-download-limit",
+          "type": "input",
+          "dataType": "bytes",
+          "readOnly": false
+        },
+        {
+          "key": "allow-overwrite",
+          "type": "switch",
+          "dataType": "bool",
+          "readOnly": false
+        },
+        {
+          "key": "conditional-get",
+          "type": "switch",
+          "dataType": "bool",
+          "readOnly": false
+        },
+        {
+          "key": "file-allocation",
+          "type": "select",
+          "dataType": "string",
+          "readOnly": false,
+          "options": [
+            {
+              "label": "NONE",
+              "value": "none"
+            },
+            {
+              "label": "PREALLOC",
+              "value": "prealloc"
+            },
+            {
+              "label": "FALLOC",
+              "value": "falloc"
+            },
+            {
+              "label": "TRUNC",
+              "value": "trunc"
+            }
+          ]
+        },
+        {
+          "key": "parameterized-uri",
+          "type": "switch",
+          "dataType": "bool",
+          "readOnly": false
+        },
+        {
+          "key": "force-save",
+          "type": "switch",
+          "dataType": "bool",
+          "readOnly": false
+        }
+      ]
+    },
+    {
+      "title": "HTTP",
+      "fields": [
+        {
+          "key": "out",
+          "type": "input",
+          "dataType": "string",
+          "readOnly": false
+        },
+        {
+          "key": "split",
+          "type": "input",
+          "dataType": "int",
+          "readOnly": false
+        },
+        {
+          "key": "min-split-size",
+          "type": "input",
+          "dataType": "bytes",
+          "readOnly": false
+        },
+        {
+          "key": "max-connection-per-server",
+          "type": "input",
+          "dataType": "int",
+          "readOnly": false
+        },
+        {
+          "key": "lowest-speed-limit",
+          "type": "input",
+          "dataType": "bytes",
+          "readOnly": false
+        },
+        {
+          "key": "stream-piece-selector",
+          "type": "select",
+          "dataType": "string",
+          "readOnly": false,
+          "options": [
+            {
+              "label": "DEFAULT",
+              "value": "default"
+            },
+            {
+              "label": "INORDER",
+              "value": "inorder"
+            },
+            {
+              "label": "RANDOM",
+              "value": "random"
+            },
+            {
+              "label": "GEOM",
+              "value": "geom"
+            }
+          ]
+        },
+        {
+          "key": "http-user",
+          "type": "input",
+          "dataType": "string",
+          "readOnly": false
+        },
+        {
+          "key": "http-passwd",
+          "type": "input",
+          "dataType": "string",
+          "readOnly": false
+        },
+        {
+          "key": "all-proxy",
+          "type": "input",
+          "dataType": "string",
+          "readOnly": false
+        },
+        {
+          "key": "all-proxy-user",
+          "type": "input",
+          "dataType": "string",
+          "readOnly": false
+        },
+        {
+          "key": "all-proxy-passwd",
+          "type": "input",
+          "dataType": "string",
+          "readOnly": false
+        },
+        {
+          "key": "referer",
+          "type": "input",
+          "dataType": "string",
+          "readOnly": false
+        },
+        {
+          "key": "header",
+          "type": "input",
+          "dataType": "string",
+          "readOnly": false
+        },
+        {
+          "key": "save-cookies",
+          "type": "input",
+          "dataType": "string",
+          "readOnly": false
+        },
+        {
+          "key": "use-head",
+          "type": "switch",
+          "dataType": "bool",
+          "readOnly": false
+        },
+        {
+          "key": "user-agent",
+          "type": "input",
+          "dataType": "string",
+          "readOnly": false
+        }
+      ]
+    },
+    {
+      "title": "BT",
+      "fields": [
+        {
+          "key": "max-upload-limit",
+          "type": "input",
+          "dataType": "bytes",
+          "readOnly": false
+        },
+        {
+          "key": "bt-max-peers",
+          "type": "input",
+          "dataType": "int",
+          "readOnly": false
+        },
+        {
+          "key": "bt-request-peer-speed-limit",
+          "type": "input",
+          "dataType": "bytes",
+          "readOnly": false
+        },
+        {
+          "key": "bt-remove-unselected-file",
+          "type": "switch",
+          "dataType": "bool",
+          "readOnly": false
+        },
+        {
+          "key": "bt-stop-timeout",
+          "type": "input",
+          "dataType": "second",
+          "readOnly": false
+        },
+        {
+          "key": "bt-tracker",
+          "type": "list",
+          "dataType": "string",
+          "readOnly": false
+        },
+        {
+          "key": "seed-ratio",
+          "type": "input",
+          "dataType": "double",
+          "readOnly": false
+        },
+        {
+          "key": "seed-time",
+          "type": "input",
+          "dataType": "minute",
+          "readOnly": false
         }
       ]
     }

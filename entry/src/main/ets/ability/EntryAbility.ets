@@ -23,6 +23,7 @@ export default class EntryAbility extends UIAbility {
     // Main window is created, set main page for this ability
     this.context.resourceManager.getRawFileContent('globalOptionsField.json').then((data) => {
       Aria2Service.instance.loadGlobalOptionsJson(StrUtil.unit8ArrayToStr(data));
+      Aria2Service.instance.loadTaskOptionsJson(StrUtil.unit8ArrayToStr(data));
     })
     DatabaseService.init(this.context, {
       name: 'RdbTest.db', // 数据库文件名
@@ -47,7 +48,7 @@ export default class EntryAbility extends UIAbility {
 
       })
 
-      windowStage.loadContent('pages/serverPage', (err) => {
+      windowStage.loadContent('pages/test', (err) => {
         if (err.code) {
           hilog.error(0x0000, 'testTag', 'Failed to load the content. Cause: %{public}s', JSON.stringify(err) ?? '');
           return;

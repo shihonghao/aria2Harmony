@@ -169,7 +169,7 @@ export default struct Form {
   validate(): boolean {
     let hasError = false;
     this.itemRefs.forEach(itemRef => {
-      if (!itemRef.value?.validate()) {
+      if (!itemRef.value?.validate().success) {
         hasError = true;
       }
     });

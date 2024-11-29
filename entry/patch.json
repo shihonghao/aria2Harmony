@@ -1,7 +1,7 @@
 {
   "app": {
     "bundleName": "com.s2h.aria2Harmony",
-    "patchVersionCode": 2000655,
+    "patchVersionCode": 2000735,
     "versionCode": 1000000
   },
   "module": {
