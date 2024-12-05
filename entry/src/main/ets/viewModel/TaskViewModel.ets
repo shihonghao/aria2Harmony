@@ -1,18 +1,12 @@
-import { Task, TaskStatus } from "../model/Task";
+import { TaskStatus } from '../model/Task';
 
 @Observed
 export default class TaskViewModel {
   @Track
-  title: string = "下载中";
+  title: string | Resource = $r('app.string.download_label');
   @Track
   taskStatus: TaskStatus = TaskStatus.active;
   @Track toggle: boolean = false;
-  @Track activeTasks: Array<Task> = [];
-  @Track waitingTasks: Array<Task> = [];
-  @Track pausedTasks: Array<Task> = [];
-  @Track completeTasks: Array<Task> = [];
-  @Track removedTasks: Array<Task> = [];
-  @Track errorTasks: Array<Task> = [];
   @Track swiperController: SwiperController = new SwiperController();
 
   toggleStatus(status: TaskStatus) {
@@ -22,22 +16,22 @@ export default class TaskViewModel {
     this.taskStatus = status;
     switch (this.taskStatus) {
       case TaskStatus.active:
-        this.title = "下载中";
+        this.title = $r('app.string.download_label');
         break;
       case TaskStatus.paused:
-        this.title = "已暂停";
+        this.title = $r('app.string.paused_label');
         break;
       case TaskStatus.waiting:
-        this.title = "等待中";
+        this.title = $r('app.string.waiting_label');
         break;
       case TaskStatus.complete:
-        this.title = "已完成";
+        this.title = $r('app.string.completed_label');
         break;
       case TaskStatus.removed:
-        this.title = "已删除";
+        this.title = $r('app.string.removed_label');
         break;
       case TaskStatus.error:
-        this.title = "错误";
+        this.title = $r('app.string.error_label');
         break;
     }
     this.toggle = !this.toggle;

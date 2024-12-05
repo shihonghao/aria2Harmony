@@ -2,8 +2,8 @@ import { FormItemEventOptionInterface } from "./Form"
 
 @Component
 export default struct MyTextInput {
-  @Prop label: string
-  @Prop placeholder: string
+  @Prop label: string | Resource
+  @Prop placeholder: string | Resource
   @Prop required: boolean
   @Prop readOnly: boolean
   @Prop textAlign: TextAlign
@@ -15,7 +15,7 @@ export default struct MyTextInput {
     Row() {
       Column({ space: 5 }) {
         Row() {
-          Text(this.label).fontSize(12)
+          Text(this.label).fontSize(15)
           if (this.required) {
             Text(" *").fontColor(Color.Red)
           }

@@ -1,12 +1,13 @@
 import { ServerCard } from '../view/ServerCard';
 import Aria2 from '../model/Aria2';
 import { Aria2Keys } from '../static/PersistentKeys';
-import { OhosSmartDialog } from 'ohos_smart_dialog';
-import ServerEditSheet from '../view/ServerEditSheet';
+import ServerEditSheet from '../view/sheet/ServerEditSheet';
 import MyTransitionEffects from '../effects/MyTransitionEffects';
 import { AnimatedIcon } from '../view/AnimatedIcon';
 import { router, SymbolGlyphModifier } from '@kit.ArkUI';
 import ComponentRef from '../view/ComponentRef';
+import { ConfigurationConstant } from '@kit.AbilityKit';
+import SettingsSheet from '../view/sheet/SettingsSheet';
 
 
 @Entry
@@ -18,6 +19,9 @@ struct ServerPage {
   @State toggle: boolean = false;
   _opacity: number = 0.5;
   serverEditSheetRef = ComponentRef.useRef<ServerEditSheet>();
+  settingSheetRef = ComponentRef.useRef<SettingsSheet>();
+  @StorageProp('themeMode') currentMode: number =
+    ConfigurationConstant.ColorMode.COLOR_MODE_LIGHT;
 
   onPageShow(): void {
     this.updateTitle('');
@@ -25,6 +29,9 @@ struct ServerPage {
 
   build() {
     Stack() {
+      SettingsSheet({
+        ref: this.settingSheetRef
+      })
       Navigation() {
         ServerEditSheet({
           serverEditSheetRef: this.serverEditSheetRef
@@ -48,12 +55,11 @@ struct ServerPage {
           }
         } else {
           Stack() {
-            Button("add")
+            Button($r('app.string.add'))
               .width('80%')
               .borderRadius(1).onClick(() => {
               this.serverEditSheetRef.value?.open();
             })
-
           }.position({ x: '50%', y: '40%' }).markAnchor({ x: '50%' })
 
         }
@@ -62,9 +68,7 @@ struct ServerPage {
       .title(this.buildTitle())
       .titleMode(NavigationTitleMode.Full)
       .hideBackButton(true)
-
-      OhosSmartDialog()
-
+      .backgroundColor($r('app.color.app_background_color'))
     }
   }
 
@@ -126,7 +130,7 @@ struct ServerPage {
         .size({ width: 40, height: 40 }).bindMenu([
         {
           symbolIcon: new SymbolGlyphModifier($r('sys.symbol.streak_jump')),
-          value: "去任务",
+          value: $r('app.string.go_task'),
           action: () => {
             router.pushUrl({
               url: "pages/taskPage"
@@ -135,12 +139,32 @@ struct ServerPage {
         },
         {
           symbolIcon: new SymbolGlyphModifier($r('sys.symbol.plus')),
-          value: "新增",
+          value: $r('app.string.add'),
           action: () => {
             this.serverEditSheetRef.value?.open();
 
           }
-        }
+        },
+        {
+          symbolIcon: new SymbolGlyphModifier($r('sys.symbol.house_setting')),
+          value: $r('app.string.settings'),
+          action: () => {
+            this.settingSheetRef.value?.open();
+
+          }
+        },
+        {
+          symbolIcon: new SymbolGlyphModifier($r(this.currentMode == ConfigurationConstant.ColorMode.COLOR_MODE_DARK ?
+            'sys.symbol.sun' : 'sys.symbol.moon')),
+          value: $r(this.currentMode == ConfigurationConstant.ColorMode.COLOR_MODE_DARK ? 'app.string.light_mode' :  'app.string.dark_mode'),
+          action: () => {
+            this.getUIContext()
+              .getHostContext()?.getApplicationContext().setColorMode(this.currentMode ==
+            ConfigurationConstant.ColorMode.COLOR_MODE_DARK ? ConfigurationConstant.ColorMode.COLOR_MODE_LIGHT :
+            ConfigurationConstant.ColorMode.COLOR_MODE_DARK)
+
+          }
+        },
       ])
     }.margin(20)
   }

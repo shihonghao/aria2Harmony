@@ -4,7 +4,7 @@ export default  class Validator {
     if (data) {
       return { success: true }
     } else {
-      return { success: false, message: "* 不能为空" }
+      return { success: false, message: $r('app.string.validator_not_null') }
 
     }
   }
@@ -12,5 +12,5 @@ export default  class Validator {
 
 export interface ValidateResult {
   success: boolean;
-  message?: string;
+  message?: string | Resource;
 }

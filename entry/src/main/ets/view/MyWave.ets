@@ -1,7 +1,7 @@
-import { FrameNode, NodeController, RectShape, RenderNode } from '@kit.ArkUI';
-import { common2D, drawing } from '@kit.ArkGraphics2D';
+import { FrameNode, NodeController, RenderNode, ShapeClip } from '@kit.ArkUI';
+import { drawing } from '@kit.ArkGraphics2D';
 import { AnimatedProp } from './AnimtionedWidget';
-import UIUtil, { nothingToBuild } from '../utils/UIUtil';
+import { nothingToBuild } from '../utils/UIUtil';
 
 export enum ProcessDirection {
   top,
@@ -31,50 +31,35 @@ class WaveRenderNode extends RenderNode {
     let maxHeight = vp2px(this.waveOption.height);
 
     const canvas = context.canvas
-    const pen = new drawing.Pen()
-    pen.setStrokeWidth(5)
-    pen.setColor({
-      alpha: 255,
-      red: 255,
-      green: 255,
-      blue: 255
-    })
 
-    canvas.attachPen(pen)
+    const pathPen = new drawing.Pen()
 
-    let rrect = new drawing.RoundRect({
-      left: 0,
-      right: maxWidth,
-      top: 0,
-      bottom: maxHeight
-    }, 10, 10);
-
-
-    canvas.drawRoundRect(rrect)
-
-    canvas.save();
-
-    canvas.restore();
-
+    pathPen.setColor(
+      {
+        alpha: 0,
+        red: 255,
+        green: 255,
+        blue: 255
+      })
 
     // 创建一个画刷Brush对象，Brush对象用于形状的填充
-    let brush = new drawing.Brush()
-    // let brush_color: common2D.Color = {
-    //   alpha: 0xFF,
-    //   red: 0x00,
-    //   green: 0xFF,
-    //   blue: 0x00
-    // }
-    brush.setMaskFilter(drawing.MaskFilter.createBlurMaskFilter(drawing.BlurType.NORMAL, 10))
-    brush.setColor({
-      alpha: 200,
-      red: 255,
-      green: 200,
-      blue: 255
-    })
+    let pathBrush = new drawing.Brush()
 
-    // 将Brush画刷设置到canvas中
-    canvas.attachBrush(brush)
+    if (AppStorage.get<number>('themeMode') == 1) {
+      pathBrush.setColor({
+        alpha: 100,
+        red: 100,
+        blue: 237,
+        green: 149
+      })
+    } else {
+      pathBrush.setColor({
+        alpha: 100,
+        red: 255,
+        blue: 0,
+        green: 127
+      })
+    }
 
 
     let path = new drawing.Path()
@@ -85,7 +70,7 @@ class WaveRenderNode extends RenderNode {
     let percentLen = baseLen * this.percent;
 
     if (this.waveOption.direction == ProcessDirection.top) {
-      path.moveTo(0, maxHeight - 10)
+      path.moveTo(0, maxHeight)
       for (let i = 0; i < maxWidth; i++) {
         let val = Math.sin(this.angle + (i / maxWidth) * 2 * Math.PI) * this.waveOption.amplitude!;
         path.lineTo(i, maxHeight - (percentLen + val))
@@ -116,12 +101,15 @@ class WaveRenderNode extends RenderNode {
         let val = Math.sin(this.angle + (i / maxHeight) * 2 * Math.PI) * this.waveOption.amplitude!;
         path.lineTo(percentLen + val, i)
       }
+
       path.lineTo(0, maxHeight);
       path.lineTo(0, 0)
 
     }
 
-
+    // 将Brush画刷设置到canvas中
+    canvas.attachBrush(pathBrush)
+    canvas.attachPen(pathPen)
     canvas.drawPath(path);
 
 
@@ -143,7 +131,7 @@ class MyWaveNodeController extends NodeController {
       duration: waveOption?.duration ?? 950,
       direction: waveOption?.direction ?? ProcessDirection.top,
       waveDirection: waveOption?.waveDirection ?? WaveDirection.ltr,
-      amplitude: waveOption?.amplitude ?? 20
+      amplitude: waveOption?.amplitude ?? 20,
     };
     if (this.waveOption.waveDirection == WaveDirection.ltr) {
       this.angle = 2 * Math.PI;
@@ -200,6 +188,23 @@ class MyWaveNodeController extends NodeController {
         width: maxWidth,
         height: maxHeight
       }
+      const clip = new ShapeClip();
+      let corner = vp2px(10)
+      clip.setRoundRectShape({
+        rect: {
+          left: 0,
+          top: 0,
+          right: vp2px(maxWidth),
+          bottom: vp2px(maxHeight)
+        },
+        corners: {
+          topLeft: { x: corner, y: corner },
+          topRight: { x: corner, y: corner },
+          bottomLeft: { x: corner, y: corner },
+          bottomRight: { x: corner, y: corner },
+        }
+      })
+      renderNode.shapeClip = clip;
       // 创建一个RectRenderNode对象
       const rectNode = new WaveRenderNode(this.waveOption, this.percent, this.angle)
       // 定义rectNode的像素格式
@@ -209,11 +214,11 @@ class MyWaveNodeController extends NodeController {
         width: maxWidth,
         height: maxHeight
       }
-      // rectNode.pivot = { x: 0.2, y: 0.8 }
-      rectNode.scale = { x: 1, y: 1 }
+      // rectNode.scale = { x: 1, y: 1 }
 
       renderNode.appendChild(rectNode)
     }
+
     return this.rootNode
   }
 
@@ -248,11 +253,9 @@ export default struct MyWave {
   @Prop option: WaveOptionInterface
   @Prop @Watch('updatePercent') percent: number
   @Prop contentString: string;
-  @Prop title: string
+  @Prop title: Resource | string
   @Prop titleAlignRule: AlignRuleOption
-
-  @BuilderParam child:()=>void = nothingToBuild;
-
+  @BuilderParam child: () => void = nothingToBuild;
 
   @Builder
   defaultContent() {
@@ -265,16 +268,24 @@ export default struct MyWave {
   }
 
   build() {
-    RelativeContainer() {
+    Stack() {
       NodeContainer(this.nodeController).align(Alignment.Center)
-      Text(this.title).margin(10).alignRules(this.titleAlignRule).fontSize(15)
-      Text(this.contentString ?? (this.percent * 100).toFixed(2) + " %").alignRules({
-        middle: { anchor: '__container__', align: HorizontalAlign.Center },
-        center: { anchor: '__container__', align: VerticalAlign.Center }
-      })
-    }.width(this.option?.width ?? '100%').height(this.option?.height ?? '100%').onSizeChange((oldValue, newValue) => {
+      RelativeContainer() {
+        Text(this.title).margin(10).alignRules(this.titleAlignRule).fontSize(15)
+        Text(this.contentString ?? (this.percent * 100).toFixed(2) + " %").alignRules({
+          middle: { anchor: '__container__', align: HorizontalAlign.Center },
+          center: { anchor: '__container__', align: VerticalAlign.Center }
+        })
+      }.width('100%').height('100%')
+
+    }
+    .width(this.option?.width ?? '100%')
+    .height(this.option?.height ?? '100%')
+    .onSizeChange((oldValue, newValue) => {
       this.nodeController?.changeSize(newValue);
     })
+    .backgroundColor($r('app.color.card_background_color'))
+    .borderRadius(10)
 
   }
 

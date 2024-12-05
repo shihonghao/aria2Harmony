@@ -8,7 +8,7 @@ export interface SelectOptionInterface {
 
 @Component
 export default struct MySelect {
-  @Prop label: string
+  @Prop label: string | Resource
   @Link value: string
   @Prop readOnly: boolean
   @Require @Prop options: Array<SelectOptionInterface>
@@ -31,15 +31,15 @@ export default struct MySelect {
   }
 
   build() {
-    Row() {
-      Text(this.label).fontSize(12)
+    Column() {
+      Text(this.label).fontSize(15)
       Blank()
-      Row() {
+      Row({space:5}) {
         Text(this.getOptionLabel(this.value))
-        SymbolGlyph($r('sys.symbol.chevron_right')).fontSize(24).margin({ left: 5 })
-
-      }.bindMenu(this.menuElement,)
-    }.width('100%').margin({ bottom: 5 })
+        Image($r('app.media.right'))
+          .size({width:12,height:12})
+      }.bindMenu(this.menuElement,).justifyContent(FlexAlign.End).alignSelf(ItemAlign.End)
+    }.width('100%').margin({ bottom: 5 }).alignItems(HorizontalAlign.Start)
   }
 
   getOptionLabel(value: string): string {

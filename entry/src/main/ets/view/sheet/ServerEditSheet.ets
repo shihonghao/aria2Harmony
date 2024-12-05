@@ -1,11 +1,11 @@
-import Form, { FormItemType } from './form/Form';
+import Form, { FormItemType } from '../form/Form';
 import { promptAction, SymbolGlyphModifier } from '@kit.ArkUI';
-import RpcService from '../service/RpcService';
-import Aria2 from '../model/Aria2';
-import LoadingWidget from './LoadingWidget';
-import { Aria2Utils } from '../utils/Aria2Utils';
-import Const from '../static/Const';
-import ComponentRef from './ComponentRef';
+import RpcService from '../../service/RpcService';
+import Aria2 from '../../model/Aria2';
+import LoadingWidget from '../LoadingWidget';
+import { Aria2Utils } from '../../utils/Aria2Utils';
+import Const from '../../static/Const';
+import ComponentRef from '../ComponentRef';
 
 @Component
 export default struct ServerEditSheet {
@@ -64,22 +64,22 @@ export default struct ServerEditSheet {
         blurStyle: BlurStyle.Thin,
         // title: this.buildTopBar(),
         showClose: false,
-        backgroundColor: '#ffd9d9d9',
+        backgroundColor: $r('app.color.app_background_color'),
         onWillDismiss: (action) => {
           this.getUIContext().showAlertDialog({
-            title: '警告',
-            message: '服务器信息未保存,是否关闭',
+            title: $r('app.string.warning'),
+            message: $r('app.string.server_edit_sheet_dialog_warning_info'),
             isModal: true,
             primaryButton: {
               enabled: true,
-              value: '确定',
+              value: $r('app.string.confirm'),
               action: () => {
                 this.close();
               }
             },
             secondaryButton: {
               enabled: true,
-              value: '取消',
+              value: $r('app.string.cancel'),
               action: () => {
 
               }
@@ -93,8 +93,8 @@ export default struct ServerEditSheet {
   buildLoadingWidget() {
 
     LoadingWidget({
-      successMessage: "连接成功",
-      failedMessage: "连接失败",
+      successMessage: $r('app.string.server_edit_sheet_connect_success'),
+      failedMessage: $r('app.string.server_edit_sheet_connect_fail'),
       onFinish: () => {
         if (this.dialogId) {
           setTimeout(() => {
@@ -148,51 +148,51 @@ export default struct ServerEditSheet {
 
   @Builder
   buildContent() {
-    Navigation(){
-    Column() {
-      Form({
-        formRef: this.formRef,
-        footer: this.buildFooter,
-        groups: [
-          {
-            option: {
-              header: '服务器信息',
-              footer: '服务器地址格式为：http(s)://example.com:6800/jsonrpc \n请先测试服务器地址和密钥是否正确，再保存。'
+    Navigation() {
+      Column() {
+        Form({
+          formRef: this.formRef,
+          footer: this.buildFooter,
+          groups: [
+            {
+              option: {
+                header: $r('app.string.server_edit_sheet_server_info'),
+                footer: '服务器地址格式为：http(s)://example.com:6800/jsonrpc \n请先测试服务器地址和密钥是否正确，再保存。'
+              },
+              children: [
+                {
+                  key: 'name',
+                  label: $r('app.string.server_edit_sheet_name'),
+                  placeholder: $r('app.string.server_edit_sheet_name_placeholder'),
+                  type: FormItemType.input,
+                  required: true
+                },
+                {
+                  key: 'url',
+                  label: $r('app.string.server_edit_sheet_url'),
+                  placeholder: $r('app.string.server_edit_sheet_url_placeholder'),
+                  type: FormItemType.input,
+                  required: true
+                },
+                {
+                  key: 'secret',
+                  label: $r('app.string.server_edit_sheet_secret'),
+                  placeholder: $r('app.string.server_edit_sheet_secret_placeholder'),
+                  type: FormItemType.input,
+                }
+              ]
             },
-            children: [
-              {
-                key: 'name',
-                label: '名称',
-                placeholder: '请输入名称',
-                type: FormItemType.input,
-                required: true
-              },
-              {
-                key: 'url',
-                label: '服务器地址',
-                placeholder: '请输入服务器地址',
-                type: FormItemType.input,
-                required: true
-              },
-              {
-                key: 'secret',
-                label: '密钥',
-                placeholder: '请输入密钥（可选）',
-                type: FormItemType.input,
-              }
-            ]
-          },
-        ],
-        model: this.model
-      })
+          ],
+          model: this.model
+        })
 
-    }
-    }.title('新增').titleMode(NavigationTitleMode.Mini)
+      }
+    }.title($r('app.string.add')).titleMode(NavigationTitleMode.Mini)
     .menus([
       {
-        value:'测试',
-        symbolIcon:new SymbolGlyphModifier($r('sys.symbol.connection')),
-        action:()=>{
+        value: '测试',
+        symbolIcon: new SymbolGlyphModifier($r('sys.symbol.connection')),
+        action: () => {
           if (this.formRef.value?.validate()) {
             promptAction.openCustomDialog({
               builder: () => {
@@ -209,12 +209,12 @@ export default struct ServerEditSheet {
         }
       }
     ])
-    .margin({top:10})
+    .margin({ top: 10 })
   }
 
   @LocalBuilder
   buildFooter() {
-    Button('保存', {
+    Button($r('app.string.server_edit_sheet_save'), {
       type: ButtonType.Normal
     }).borderRadius(5).width('80%').onClick(() => {
       if (this.aria2) {

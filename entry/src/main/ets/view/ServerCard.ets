@@ -5,7 +5,7 @@ import { ServerState, ServerViewModel } from '../viewModel/ServerViewModel';
 import { AnimatedIcon } from './AnimatedIcon';
 import { router } from '@kit.ArkUI';
 import { Aria2Utils } from '../utils/Aria2Utils';
-import ServerEditSheet from './ServerEditSheet';
+import ServerEditSheet from './sheet/ServerEditSheet';
 import ComponentRef from './ComponentRef';
 import "reflect-metadata";
 import MyWave, { ProcessDirection } from './MyWave';
@@ -22,8 +22,13 @@ export struct ServerCard {
   private timer?: number;
 
   aboutToAppear(): void {
-    this.updateSelectedAria2('')
-    this.startTimer()
+    this.model.selectedIconColor =
+      this.aria2.isDefault ? $r('app.color.active_color') : $r('app.color.inactive_color');
+    if(this.aria2.isDefault){
+      this.tryConnect().then(()=>{
+        this.startTimer()
+      })
+    }
   }
 
   aboutToDisappear(): void {
@@ -53,10 +58,10 @@ export struct ServerCard {
           }, () => {
             this.model.rotateAngle += 360
           })
-        })
+        }).fillColor($r('app.color.active_color'))
     } else if (this.model.state == ServerState.connected) {
       Image($r("app.media.wifi_line")).opacity(0.2).fillColor(Color.Blue)
-        .size({ width: 100, height: 100 })
+        .size({ width: 100, height: 100 }).fillColor($r('app.color.active_color'))
     } else if (this.model.state == ServerState.disconnected) {
       Image($r("app.media.wifi_off_line")).opacity(0.2)
         .size({ width: 100, height: 100 })
@@ -76,9 +81,10 @@ export struct ServerCard {
           aria2: this.aria2, serverEditSheetRef: this.serverEditSheetRef
         })
         this.buildServerStateIcon()
-        Text(this.aria2.name).position({ left: 20, bottom: 20 })
+        Text(this.aria2.name).position({ left: 20, bottom: 20 }).fontSize(30)
         AnimatedIcon({
           icon: $r('app.media.more_1'),
+          fillColor: $r('app.color.active_color'),
           rotateProp: {
             animatorOptions: {
               duration: 200,
@@ -115,21 +121,21 @@ export struct ServerCard {
           .size({ width: 30, height: 30 })
           .bindMenu([
             {
-              value: 'edit',
+              value: $r('app.string.edit'),
               action: () => {
                 this.serverEditSheetRef.value?.open();
               },
               icon: $r('app.media.edit')
             },
             {
-              value: 'refresh',
+              value: $r('app.string.refresh'),
               action: () => {
                 this.tryConnect();
               },
               icon: $r('app.media.refresh')
             },
             {
-              value: 'info',
+              value: $r('app.string.info'),
               action: () => {
                 router.pushUrl({
                   url: "pages/globalOptionsPage",
@@ -139,7 +145,7 @@ export struct ServerCard {
               icon: $r('app.media.information')
             },
             {
-              value: 'delete',
+              value: $r('app.string.delete'),
               action: () => {
                 Aria2Utils.removeAria2(this.aria2);
               },
@@ -174,11 +180,36 @@ export struct ServerCard {
             }
             this.tryConnect();
           })
+        // AnimatedIcon({
+        //   icon: $r('app.media.setting_1'),
+        //   fillColor: $r('app.color.active_color'),
+        //   scaleProp: {
+        //     animatorOptions: {
+        //       duration: 200,
+        //       easing: "linear",
+        //       delay: 0,
+        //       fill: "forwards",
+        //       direction: "alternate",
+        //       iterations: 2,
+        //       begin: 1,
+        //       end: 0.5
+        //     },
+        //     initial: { x: 1, y: 1 },
+        //     valueMapper: (data) => {
+        //       return { x: data, y: data }
+        //     }
+        //   }
+        // }).position({ right: 15, bottom: 15 })
+        //   .size({ width: 30, height: 30 })
+        //   .onClick(() => {
+        //
+        //   })
+
 
       }
       .borderRadius(20)
       .shadow(1)
-      .backgroundColor(Color.White)
+      .backgroundColor($r('app.color.card_background_color'))
       .align(Alignment.Center)
       .height('48%')
       .width('100%')
@@ -186,7 +217,7 @@ export struct ServerCard {
       Column() {
         Row() {
           MyWave({
-            title: '下载中',
+            title: $r('app.string.download_label'),
             percent: this.model.numActive / this.model.totalNum,
             option: {
               direction: ProcessDirection.top
@@ -195,7 +226,7 @@ export struct ServerCard {
           }).shadow(1).borderRadius(10).width('48%').height('100%')
           Column() {
             MyWave({
-              title: '等待中',
+              title: $r('app.string.waiting_label'),
               percent: this.model.numWaiting / this.model.totalNum,
               option: {
                 direction: ProcessDirection.left
@@ -203,7 +234,7 @@ export struct ServerCard {
               contentString: this.model.numWaiting.toString()
             }).shadow(1).borderRadius(10).width('100%').height('48%')
             MyWave({
-              title: '已停止',
+              title: $r('app.string.stopped_label'),
               percent: this.model.numStopped / this.model.totalNum,
               option: {
                 direction: ProcessDirection.left
@@ -216,7 +247,7 @@ export struct ServerCard {
 
         Column() {
           MyWave({
-            title: '下载速度',
+            title: $r('app.string.download_speed'),
             percent: this.model.downloadPercent,
             option: {
               duration: 500,
@@ -226,7 +257,7 @@ export struct ServerCard {
           }).shadow(1).borderRadius(10).width('100%').height('48%')
 
           MyWave({
-            title: '上传速度',
+            title: $r('app.string.upload_speed'),
             percent: this.model.uploadPercent,
             option: {
               duration: 500,
@@ -259,9 +290,15 @@ export struct ServerCard {
 
   updateSelectedAria2(propName: string) {
     if (this.defaultAria2) {
-      this.aria2.isDefault = this.defaultAria2.key == this.aria2.key;
-      this.model.selectedIconColor = this.aria2.isDefault ? Color.Blue : Color.Gray;
-      this.startTimer();
+      let isDefault = this.defaultAria2.key == this.aria2.key;
+      if (this.aria2.isDefault != isDefault) {
+        this.aria2.isDefault = isDefault;
+        Aria2Utils.updateAria2(this.aria2).then(() => {
+          this.model.selectedIconColor =
+            this.aria2.isDefault ? $r('app.color.active_color') : $r('app.color.inactive_color');
+          this.startTimer();
+        })
+      }
     }
   }
 }

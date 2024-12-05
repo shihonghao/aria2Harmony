@@ -1,3 +1,4 @@
+import { DateUtil } from '@pura/harmony-utils'
 import { Transform, TransformFnParams, Type } from 'class-transformer'
 import CommonUtils from '../utils/CommonUtils'
 import { convertToBool, convertToNumber } from './GlobalOptions'
@@ -25,7 +26,7 @@ export class Task {
   //  removed  用户移除的下载
   @Transform((param: TransformFnParams) => {
     if (typeof param.value == 'string') {
-      return CommonUtils.convertTaskStatus(param.value);
+      return CommonUtils.convertStringToTaskStatus(param.value);
     } else {
       return (param.value as TaskStatus).toString();
     }
@@ -95,42 +96,47 @@ export class Task {
   @Transform(convertToNumber)
   lastUploadSpeed?: number
 
-  constructor(gid: string, taskName: string, status: TaskStatus, totalLength: number,
-    completedLength: number, lastCompletedLength: number, uploadLength: number,
-    bitfield: string, downloadSpeed: number, uploadSpeed: number, infoHash: string,
-    numSeeders: number, seeder: boolean, pieceLength: number, numPieces: number,
-    connections: number, errorCode: number, errorMessage: string, followedBy: Array<string>,
-    following: string, belongsTo: string, dir: string, files: Array<TaskFile>, bittorrent: Bittorrent,
-    verifiedLength: string, verifyIntegrityPending: string, lastDownloadSpeed: number,
-    lastUploadSpeed: number) {
-    this.gid = gid
-    this.taskName = taskName
-    this.status = status
-    this.totalLength = totalLength
-    this.completedLength = completedLength
-    this.lastCompletedLength = lastCompletedLength
-    this.uploadLength = uploadLength
-    this.bitfield = bitfield
-    this.downloadSpeed = downloadSpeed
-    this.uploadSpeed = uploadSpeed
-    this.infoHash = infoHash
-    this.numSeeders = numSeeders
-    this.seeder = seeder
-    this.pieceLength = pieceLength
-    this.numPieces = numPieces
-    this.connections = connections
-    this.errorCode = errorCode
-    this.errorMessage = errorMessage
-    this.followedBy = followedBy
-    this.following = following
-    this.belongsTo = belongsTo
-    this.dir = dir
-    this.files = files
-    this.bittorrent = bittorrent
-    this.verifiedLength = verifiedLength
-    this.verifyIntegrityPending = verifyIntegrityPending
-    this.lastDownloadSpeed = lastDownloadSpeed
-    this.lastUploadSpeed = lastUploadSpeed
+  // constructor(gid: string, taskName: string, status: TaskStatus, totalLength: number,
+  //   completedLength: number, lastCompletedLength: number, uploadLength: number,
+  //   bitfield: string, downloadSpeed: number, uploadSpeed: number, infoHash: string,
+  //   numSeeders: number, seeder: boolean, pieceLength: number, numPieces: number,
+  //   connections: number, errorCode: number, errorMessage: string, followedBy: Array<string>,
+  //   following: string, belongsTo: string, dir: string, files: Array<TaskFile>, bittorrent: Bittorrent,
+  //   verifiedLength: string, verifyIntegrityPending: string, lastDownloadSpeed: number,
+  //   lastUploadSpeed: number) {
+  //   this.gid = gid
+  //   this.taskName = taskName
+  //   this.status = status
+  //   this.totalLength = totalLength
+  //   this.completedLength = completedLength
+  //   this.lastCompletedLength = lastCompletedLength
+  //   this.uploadLength = uploadLength
+  //   this.bitfield = bitfield
+  //   this.downloadSpeed = downloadSpeed
+  //   this.uploadSpeed = uploadSpeed
+  //   this.infoHash = infoHash
+  //   this.numSeeders = numSeeders
+  //   this.seeder = seeder
+  //   this.pieceLength = pieceLength
+  //   this.numPieces = numPieces
+  //   this.connections = connections
+  //   this.errorCode = errorCode
+  //   this.errorMessage = errorMessage
+  //   this.followedBy = followedBy
+  //   this.following = following
+  //   this.belongsTo = belongsTo
+  //   this.dir = dir
+  //   this.files = files
+  //   this.bittorrent = bittorrent
+  //   this.verifiedLength = verifiedLength
+  //   this.verifyIntegrityPending = verifyIntegrityPending
+  //   this.lastDownloadSpeed = lastDownloadSpeed
+  //   this.lastUploadSpeed = lastUploadSpeed
+  // }
+
+
+  isBitTorrent(): boolean {
+    return this.bittorrent != null;
   }
 
   update(task: Task) {
@@ -143,6 +149,22 @@ export class Task {
     this.uploadSpeed = task.uploadSpeed;
     this.numPieces = task.numPieces;
     this.bitfield = task.bitfield;
+  }
+
+  getSeedersConnections(): number {
+    if (this.isBitTorrent()) {
+      return (this.numSeeders ?? 0) / (this.connections ?? 1)
+    } else {
+      return 0;
+    }
+  }
+
+  getCreationDate(): string {
+    if (this.isBitTorrent()) {
+      return DateUtil.getFormatDateStr(new Date(this.bittorrent?.creationDate ?? 0))
+    } else {
+      return "N/A";
+    }
   }
 
   getRemainTime(): string {
@@ -221,7 +243,7 @@ export class Task {
       file.length == 0
       ? "0 %"
       :
-      ((file.completedLength ?? 0 / file.length ?? 1) * 100).toFixed(2) +
+      ((file.completedLength  / file.length ) * 100).toFixed(2) +
         " %";
   }
 
@@ -269,7 +291,7 @@ export class Task {
   }
 }
 
-class TaskFile {
+export  class TaskFile {
   @Transform(convertToNumber)
   completedLength?: number;
   @Transform(convertToNumber)

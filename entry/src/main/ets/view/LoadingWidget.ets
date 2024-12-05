@@ -6,8 +6,8 @@ import { FutureBuilder } from './FutureBuilder';
 
 @Component
 export default struct LoadingWidget {
-  @Prop failedMessage: string;
-  @Prop successMessage: string;
+  @Prop failedMessage: string | Resource;
+  @Prop successMessage: string | Resource;
   @Require promise?: Promise<boolean>;
   onFinish?: () => void;
   onError?: () => void;
@@ -70,7 +70,7 @@ export default struct LoadingWidget {
         maxWidth: 60,
         maxHeight: 60
       })
-      Text("Loading...").margin({top:20})
+      Text($r('app.string.loading')).margin({top:20})
     }.position({ x: '50%', y: '50%' })
     .markAnchor({ x: '50%',y: '50%' }).transition(MyTransitionEffects.OPACITY)
 

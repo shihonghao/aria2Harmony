@@ -127,9 +127,29 @@ export default class RpcService {
     });
   }
 
-  static removeTask(aria2: Aria2, gid: string): Promise<void> {
+  static removeTask(aria2: Aria2, gid: string, force: boolean = false): Promise<void> {
     return new Promise<void>((resolve, reject) => {
-      RpcService.call(aria2, "aria2.forceRemove", [gid]).then(result => {
+      RpcService.call(aria2, force ? "aria2.forceRemove" : "aria2.remove", [gid]).then(result => {
+        resolve()
+      }).catch((result: Result<void>) => {
+        reject(result);
+      })
+    });
+  }
+
+  static removeDownloadResult(aria2: Aria2, gid: string,): Promise<void> {
+    return new Promise<void>((resolve, reject) => {
+      RpcService.call(aria2, "aria2.removeDownloadResult", [gid]).then(result => {
+        resolve()
+      }).catch((result: Result<void>) => {
+        reject(result);
+      })
+    });
+  }
+
+  static purgeDownloadResult(aria2: Aria2): Promise<void> {
+    return new Promise<void>((resolve, reject) => {
+      RpcService.call(aria2, "aria2.purgeDownloadResult").then(result => {
         resolve()
       }).catch((result: Result<void>) => {
         reject(result);

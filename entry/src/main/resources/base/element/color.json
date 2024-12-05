@@ -1,16 +1,28 @@
 {
   "color": [
     {
-      "name": "start_window_background",
+      "name": "app_background_color",
+      "value": "#FFF8F5F5"
+    },
+    {
+      "name": "card_background_color",
       "value": "#FFFFFF"
     },
     {
-      "name": "icon_button_active_color",
-      "value": "#FFFFE700"
+      "name": "wave_background_color",
+      "value": "#FFFFFF"
     },
     {
-      "name": "icon_button_color",
-      "value": "#FFB3ECCA"
+      "name": "common_icon_color",
+      "value": "#0000"
+    },
+    {
+      "name": "active_color",
+      "value": "#FF74B9FF"
+    },
+    {
+      "name": "inactive_color",
+      "value": "#FFCBC7C7"
     }
   ]
 }

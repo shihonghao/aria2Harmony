@@ -1,14 +1,14 @@
-import Form from './form/Form';
+import Form from '../form/Form';
 import { promptAction } from '@kit.ArkUI';
-import LoadingWidget from './LoadingWidget';
-import ComponentRef from './ComponentRef';
+import LoadingWidget from '../LoadingWidget';
+import ComponentRef from '../ComponentRef';
 import { DisplayUtil, JSONUtil } from '@pura/harmony-utils';
 import { Expose, Transform } from 'class-transformer';
-import GlobalOptions, { convertToBool, convertToNumber } from '../model/GlobalOptions';
-import Aria2Service from '../service/Aria2Service';
-import RpcService from '../service/RpcService';
-import Aria2 from '../model/Aria2';
-import { Aria2Keys } from '../static/PersistentKeys';
+import GlobalOptions, { convertToBool, convertToNumber } from '../../model/GlobalOptions';
+import Aria2Service from '../../service/Aria2Service';
+import RpcService from '../../service/RpcService';
+import Aria2 from '../../model/Aria2';
+import { Aria2Keys } from '../../static/PersistentKeys';
 
 class DownloadOptions {
   static fromGlobalOption(globalOption: GlobalOptions): DownloadOptions {
@@ -128,6 +128,7 @@ export default struct TaskEditSheet {
   globalOptionMap: Map<string, string> = new Map();
   pageStack: NavPathStack = new NavPathStack()
 
+
   aboutToDisappear(): void {
 
   }
@@ -170,19 +171,19 @@ export default struct TaskEditSheet {
         // backgroundColor: '#ffd9d9d9',
         onWillDismiss: (action) => {
           this.getUIContext().showAlertDialog({
-            title: '警告',
-            message: '下载信息未保存,是否关闭',
+            title: $r('app.string.warning'),
+            message: $r('app.string.task_add_sheet_warning_message'),
             isModal: true,
             primaryButton: {
               enabled: true,
-              value: '确定',
+              value: $r('app.string.confirm'),
               action: () => {
                 this.close();
               }
             },
             secondaryButton: {
               enabled: true,
-              value: '取消',
+              value: $r('app.string.cancel'),
               action: () => {
 
               }
@@ -241,22 +242,22 @@ export default struct TaskEditSheet {
       Column() {
         TextArea({
           text: this.urlString,
-          placeholder: "请输入下载地址（多个地址请换行输入）"
+          placeholder: $r('app.string.task_add_sheet_download_url_placeholder')
         }).borderRadius(10).height('50%').onChange((value) => {
           this.urlString = value;
         })
         Row() {
-          Button('选项')
+          Button($r('app.string.task_add_sheet_advance'))
             .type(ButtonType.Capsule)
             .backgroundColor(Color.Transparent)
-            .fontColor(Color.Blue)
+            .fontColor($r('app.color.active_color'))
             .margin(10)
             .onClick(() => {
               this.pageStack.pushPath({ name: "pageOne" })
             })
         }.width('100%').justifyContent(FlexAlign.End)
 
-        Button('下载', {
+        Button($r('app.string.task_add_sheet_download'), {
           type: ButtonType.Normal
         }).borderRadius(5).width('80%').onClick(() => {
           let urls = this.urlString.split("\n");
@@ -278,10 +279,9 @@ export default struct TaskEditSheet {
         }).margin(5)
       }.margin(10)
 
-    }
-    .title('新增')
+    }.expandSafeArea([SafeAreaType.SYSTEM],[SafeAreaEdge.TOP,SafeAreaEdge.BOTTOM])
+    .title($r('app.string.add'))
     .titleMode(NavigationTitleMode.Mini)
-    .height(DisplayUtil.getHeight() / 5)
     .navDestination(this.buildChild)
   }
 
@@ -302,7 +302,8 @@ export default struct TaskEditSheet {
           }
         })
       }
-    }.title('下载选项')
+    }
+    // .title($r('app.string.task_add_sheet_download_options'))
 
   }
 

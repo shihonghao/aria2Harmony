@@ -1,4 +1,4 @@
-import { AbilityConstant, UIAbility, Want } from '@kit.AbilityKit';
+import { AbilityConstant, Configuration, ConfigurationConstant, UIAbility, Want } from '@kit.AbilityKit';
 import { hilog } from '@kit.PerformanceAnalysisKit';
 import { window } from '@kit.ArkUI';
 import { Aria2Keys } from '../static/PersistentKeys';
@@ -11,12 +11,16 @@ import Aria2Service from '../service/Aria2Service';
 
 export default class EntryAbility extends UIAbility {
   onCreate(want: Want, launchParam: AbilityConstant.LaunchParam): void {
-    let keys = PersistentStorage.keys();
-    hilog.info(0x0000, 'testTag', '%{public}s', 'Ability onCreate');
+
+  }
+
+  onConfigurationUpdate(newConfig: Configuration): void {
+    AppStorage.has('language') && AppStorage.setOrCreate('language', newConfig.language);
+    AppStorage.has('language') && AppStorage.setOrCreate('themeMode', newConfig.colorMode?.valueOf());
   }
 
   onDestroy(): void {
-    hilog.info(0x0000, 'testTag', '%{public}s', 'Ability onDestroy');
+
   }
 
   onWindowStageCreate(windowStage: window.WindowStage): void {
@@ -25,6 +29,7 @@ export default class EntryAbility extends UIAbility {
       Aria2Service.instance.loadGlobalOptionsJson(StrUtil.unit8ArrayToStr(data));
       Aria2Service.instance.loadTaskOptionsJson(StrUtil.unit8ArrayToStr(data));
     })
+
     DatabaseService.init(this.context, {
       name: 'RdbTest.db', // 数据库文件名
       securityLevel: relationalStore.SecurityLevel.S3, // 数据库安全级别
@@ -42,18 +47,27 @@ export default class EntryAbility extends UIAbility {
             defaultAria2 = aria2;
           }
         })
+        if (defaultAria2 == undefined && aria2s.length != 0) {
+          defaultAria2 = aria2s[0]
+        }
         AppStorage.setOrCreate(Aria2Keys.ARIA2S, aria2Map);
         AppStorage.setOrCreate(Aria2Keys.DEFAULT, defaultAria2);
       }).catch(() => {
 
       })
 
-      windowStage.loadContent('pages/test', (err) => {
+      windowStage.loadContent('pages/serverPage', (err) => {
         if (err.code) {
           hilog.error(0x0000, 'testTag', 'Failed to load the content. Cause: %{public}s', JSON.stringify(err) ?? '');
           return;
         }
-        hilog.info(0x0000, 'testTag', 'Succeeded in loading the content.');
+        PersistentStorage.persistProp<string>("language", "zh-Hans-CN")
+        PersistentStorage.persistProp<number>("themeMode", -1)
+        PersistentStorage.persistProp<number>("refreshInterval", 1000)
+        let themeMode = AppStorage.get<number>("themeMode");
+        this.context.getApplicationContext()
+          .setColorMode(themeMode == 1 ? ConfigurationConstant.ColorMode.COLOR_MODE_LIGHT :
+          ConfigurationConstant.ColorMode.COLOR_MODE_DARK)
       });
 
     }).catch(() => {

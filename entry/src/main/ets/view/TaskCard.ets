@@ -21,12 +21,14 @@ export struct TaskCard {
             duration: 500,
             direction: ProcessDirection.right
           },
-          // contentString: " "
+          contentString: " "
         }).width('100%')
       }
       Column() {
         Row() {
-          Text(this.task.taskName).fontSize(25)
+          Text(this.task.taskName).fontSize(25).textOverflow({
+            overflow:TextOverflow.Ellipsis
+          }).maxLines(1).width('80%')
           Blank()
           this.buildActions()
         }.width('100%').height('20%').justifyContent(FlexAlign.SpaceBetween).alignItems(VerticalAlign.Bottom)
@@ -35,14 +37,15 @@ export struct TaskCard {
           Column() {
             if (this.task.status == TaskStatus.active) {
               Row() {
-                Row() {
-                  SymbolGlyph($r('sys.symbol.upload')).margin(5)
-                  Text(CommonUtils.formatBytes(this.task.uploadSpeed) + "/s")
+                Row({space:5}) {
+                  // Image($r('app.media.upload')).size({width:24,height:24})
+                  Image($r('app.media.data')).size({width:18,height:18})
+                  Text(CommonUtils.formatBytes(this.task.totalLength))
                 }
 
-                Row() {
-                  Text(CommonUtils.formatBytes(this.task.downloadSpeed) + "/s")
-                  SymbolGlyph($r('sys.symbol.download')).margin(5)
+                Row({space:5}) {
+                  Text(this.task.computedPercentageString())
+                  // Image($r('app.media.download')).size({width:24,height:24})
                 }
               }.justifyContent(FlexAlign.SpaceBetween).alignItems(VerticalAlign.Bottom).width('100%')
             } else {
@@ -60,9 +63,9 @@ export struct TaskCard {
         }.width('100%').height('50%').alignItems(VerticalAlign.Bottom)
 
         Row() {
-          Row() {
-            Text(CommonUtils.formatBytes(this.task.totalLength))
-            SymbolGlyph($r('sys.symbol.data')).margin(5)
+          Row({space:5}) {
+            Image($r('app.media.download')).size({width:18,height:18})
+            Text(CommonUtils.formatBytes(this.task.downloadSpeed) + "/s")
           }.justifyContent(FlexAlign.Start)
 
           Blank()
@@ -76,7 +79,7 @@ export struct TaskCard {
       }.padding(5)
 
     }
-    .shadow(1).borderRadius(10).margin(1).width('100%').height('90%')
+    .shadow(1).borderRadius(10).margin(1).width('100%').height('90%').backgroundColor($r('app.color.card_background_color'))
   }
 
   @
@@ -109,4 +112,5 @@ export struct TaskCard {
       }
     }.margin({ right: 10 })
   }
+
 }

@@ -1,11 +1,12 @@
 import MyTextInput from './MyTextInput';
-import Validator, { ValidateResult } from '../Validator';
+import Validator, { ValidateResult } from './Validator';
 import MyTransitionEffects from '../../effects/MyTransitionEffects';
 import ComponentRef from '../ComponentRef';
 import MyListTextInput from './MyListTextInput';
 import MyToggle from './MyToggle';
 import MySelect, { SelectOptionInterface } from './MySelect';
 import { nothingToBuild } from '../../utils/UIUtil';
+import CommonUtils from '../../utils/CommonUtils';
 
 
 export class FormUtil {
@@ -25,8 +26,8 @@ export interface FormItemEventOptionInterface {
 
 export interface FormItemOptionInterface {
   key: string;
-  label?: string;
-  placeholder?: string;
+  label?: string | Resource;
+  placeholder?: string | Resource;
   type: FormItemType | string;
   options?: Array<SelectOptionInterface>;
   required?: boolean;
@@ -75,7 +76,7 @@ export struct FormItem {
     Column() {
       if (this.item.type == FormItemType.input || this.item.type == 'input') {
         MyTextInput({
-          label: this.item.label ?? this.item.key,
+          label: this.item.label ?? $r(CommonUtils.i18n( this.item.key.replaceAll('-','_'))),
           placeholder: this.item.placeholder,
           value: this.value,
           readOnly: this.item.readOnly,
@@ -91,25 +92,25 @@ export struct FormItem {
         })
       } else if (this.item.type == FormItemType.list || this.item.type == 'list') {
         MyListTextInput({
-          label: this.item.label ?? this.item.key,
+          label: this.item.label ?? $r(CommonUtils.i18n( this.item.key.replaceAll('-','_'))),
           value: this.value,
           readOnly: this.item.readOnly,
-          eventOption:this.item.eventOption
+          eventOption: this.item.eventOption
         })
       } else if (this.item.type == FormItemType.switch || this.item.type == 'switch') {
         MyToggle({
-          label: this.item.label ?? this.item.key,
+          label: this.item.label ?? $r(CommonUtils.i18n( this.item.key.replaceAll('-','_'))),
           value: this.value,
           readOnly: this.item.readOnly,
-          eventOption:this.item.eventOption
+          eventOption: this.item.eventOption
         })
       } else if (this.item.type == FormItemType.select || this.item.type == 'select') {
         MySelect({
-          label: this.item.label ?? this.item.key,
+          label: this.item.label ?? $r(CommonUtils.i18n( this.item.key.replaceAll('-','_'))),
           value: this.value,
           readOnly: this.item.readOnly,
           options: this.item.options,
-          eventOption:this.item.eventOption
+          eventOption: this.item.eventOption
         })
       }
 
@@ -132,8 +133,8 @@ export struct FormItem {
 }
 
 export interface FormGroupOptionInterface {
-  header?: string
-  footer?: string
+  header?: string | Resource
+  footer?: string | Resource
 }
 
 
@@ -212,8 +213,8 @@ export default struct Form {
 
               },
                 (item: FormItemOptionInterface) => item.key)
-            }.padding({ left: 20, top: 20, bottom: 20 }).margin({ bottom: 20 })
-            .backgroundColor(Color.White)
+            }.padding(20).margin({ bottom: 20 })
+            .backgroundColor($r('app.color.card_background_color'))
             .borderRadius(10)
           }
           )
@@ -221,6 +222,6 @@ export default struct Form {
 
         this.footer()
       }
-    }.scrollable(ScrollDirection.Vertical).scrollBar(BarState.Off)
+    }.scrollable(ScrollDirection.Vertical).scrollBar(BarState.Off).backgroundColor($r('app.color.app_background_color'))
   }
 }
