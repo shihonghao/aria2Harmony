@@ -1,6 +1,20 @@
 {
   "app": {
-    "signingConfigs": [],
+    "signingConfigs": [
+      {
+        "name": "default",
+        "type": "HarmonyOS",
+        "material": {
+          "certpath": "C:\\Users\\shiho\\.ohos\\config\\default_aria2Harmony__1F6qQ9bKa1rkFY_HMqfor-5FFfCgdiw4NWLiLh9oLM=.cer",
+          "storePassword": "0000001B0E66D66098FC856B78DA0BBF52FAAB4154625F7AE4AD9007B253F444484F01B3FA49FE77FD29B0",
+          "keyAlias": "debugKey",
+          "keyPassword": "0000001BE0BAA23614E5E16FBC91C3F271126264700BBB561DBA948BCA6426688B3614B44D83C0E455D3FA",
+          "profile": "C:\\Users\\shiho\\.ohos\\config\\default_aria2Harmony__1F6qQ9bKa1rkFY_HMqfor-5FFfCgdiw4NWLiLh9oLM=.p7b",
+          "signAlg": "SHA256withECDSA",
+          "storeFile": "C:\\Users\\shiho\\.ohos\\config\\default_aria2Harmony__1F6qQ9bKa1rkFY_HMqfor-5FFfCgdiw4NWLiLh9oLM=.p12"
+        }
+      }
+    ],
     "products": [
       {
         "name": "default",
