@@ -1515,66 +1515,94 @@
     {
       "name": "items",
       "value": "项"
-    }
-  ,
+    },
     {
       "name": "task_name",
       "value": "任务名称"
-    }
-  ,
+    },
     {
       "name": "task_size",
       "value": "大小"
-    }
-  ,
+    },
     {
       "name": "task_status",
       "value": "状态"
-    }
-  ,
+    },
     {
       "name": "task_process",
       "value": "进度"
-    }
-  ,
+    },
     {
       "name": "share_ratio",
       "value": "分享率"
-    }
-  ,
+    },
     {
       "name": "seeders_connections",
       "value": "连接数"
-    }
-  ,
+    },
     {
       "name": "creation_date",
       "value": "创建日期"
-    }
-  ,
+    },
     {
       "name": "info_hash",
       "value": "Hash"
-    }
-  ,
+    },
     {
       "name": "remain_time",
       "value": "剩余时间"
-    }
-  ,
+    },
     {
       "name": "connections",
       "value": "连接数"
-    }
-  ,
+    },
     {
       "name": "download_url",
       "value": "下载地址"
-    }
-  ,
+    },
     {
       "name": "download_path",
       "value": "下载路径"
+    },
+    {
+      "name": "EntryFormAbility_desc",
+      "value": "form_description"
+    },
+    {
+      "name": "EntryFormAbility_label",
+      "value": "form_label"
+    },
+    {
+      "name": "widget_desc",
+      "value": "This is a service widget."
+    },
+    {
+      "name": "widget_display_name",
+      "value": "widget"
+    },
+    {
+      "name": "please_add_aria2",
+      "value": "请添加一个服务器"
+    },
+    {
+      "name": "please_select_aria2",
+      "value": "请选择一个服务器"
+    },
+    {
+      "name": "unPause_task",
+      "value": "开始任务"
+    },
+    {
+      "name": "pause_task",
+      "value": "暂停任务"
+    },
+    {
+      "name": "theme_mode",
+      "value": "主题"
+    },
+    {
+      "name": "language",
+      "value": "语言"
     }
   ]
 }

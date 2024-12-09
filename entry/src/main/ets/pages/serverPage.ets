@@ -15,7 +15,7 @@ import SettingsSheet from '../view/sheet/SettingsSheet';
 struct ServerPage {
   @Watch('updateTitle') @StorageProp(Aria2Keys.DEFAULT) defaultAria2: Aria2 | undefined = undefined;
   @StorageProp(Aria2Keys.ARIA2S) aria2s: Map<string, Aria2> = new Map();
-  title: string = "Please add an Aria2";
+  title: string | Resource = "Please add an Aria2";
   @State toggle: boolean = false;
   _opacity: number = 0.5;
   serverEditSheetRef = ComponentRef.useRef<ServerEditSheet>();
@@ -55,11 +55,12 @@ struct ServerPage {
           }
         } else {
           Stack() {
-            Button($r('app.string.add'))
-              .width('80%')
-              .borderRadius(1).onClick(() => {
+            Button($r('app.string.add'), {
+              type: ButtonType.Normal
+            }).width('80%')
+              .borderRadius(5).onClick(() => {
               this.serverEditSheetRef.value?.open();
-            })
+            }).backgroundColor($r('app.color.active_color'))
           }.position({ x: '50%', y: '40%' }).markAnchor({ x: '50%' })
 
         }
@@ -110,6 +111,7 @@ struct ServerPage {
 
       AnimatedIcon({
         icon: $r('app.media.Aria2'),
+        fillColor: $r('app.color.active_color'),
         scaleProp: {
           animatorOptions: {
             duration: 200,
@@ -156,7 +158,8 @@ struct ServerPage {
         {
           symbolIcon: new SymbolGlyphModifier($r(this.currentMode == ConfigurationConstant.ColorMode.COLOR_MODE_DARK ?
             'sys.symbol.sun' : 'sys.symbol.moon')),
-          value: $r(this.currentMode == ConfigurationConstant.ColorMode.COLOR_MODE_DARK ? 'app.string.light_mode' :  'app.string.dark_mode'),
+          value: $r(this.currentMode == ConfigurationConstant.ColorMode.COLOR_MODE_DARK ? 'app.string.light_mode' :
+            'app.string.dark_mode'),
           action: () => {
             this.getUIContext()
               .getHostContext()?.getApplicationContext().setColorMode(this.currentMode ==
@@ -172,11 +175,11 @@ struct ServerPage {
   updateTitle(propName: string) {
     let oriTitle = this.title;
     if (this.aria2s.size == 0) {
-      this.title = "Please add an Aria2"
+      this.title = $r('app.string.please_add_aria2')
     } else if (this.defaultAria2?.name) {
       this.title = this.defaultAria2.name;
     } else {
-      this.title = "Please selected Aria2"
+      this.title = $r('app.string.please_select_aria2')
     }
     if (this.title != oriTitle) {
       this.toggle = !this.toggle;

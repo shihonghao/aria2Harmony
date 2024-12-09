@@ -69,6 +69,7 @@ export default struct TypedTaskList {
               TransitionEffect.move(TransitionEdge.END))))
           .bindContextMenu(this.buildContextMenu({ task: item }), ResponseType.LongPress, {
             preview: MenuPreviewMode.IMAGE,
+            placement:Placement.BottomRight
           })
         }, (item: Task) => item.gid)
       }.height('100%')
@@ -81,6 +82,24 @@ export default struct TypedTaskList {
   @Builder
   buildContextMenu($$: GeneratedTypeLiteralInterface_2) {
     Menu() {
+
+      MenuItem({ symbolStartIcon: new SymbolGlyphModifier($r('sys.symbol.link')), content:  $r('app.string.task_page_action_copyLink') }).onClick(() => {
+        PasteboardUtil.setDataText($$.task.getUri())
+      })
+      // MenuItem({ symbolStartIcon: new SymbolGlyphModifier($r('sys.symbol.info_circle')), content:  $r('app.string.info') })
+      //   .onClick(() => {
+      //     router.pushUrl({ url: "pages/taskDetailPage", params: $$.task })
+      //   })
+      if($$.task.status == TaskStatus.active){
+        MenuItem({ symbolStartIcon: new SymbolGlyphModifier($r('sys.symbol.pause')), content:  $r('app.string.pause_task') }).onClick(() => {
+          this.defaultAria2 && RpcService.pauseTask(this.defaultAria2, $$.task.gid!)
+        })
+      }
+      if($$.task.status == TaskStatus.paused){
+        MenuItem({ symbolStartIcon: new SymbolGlyphModifier($r('sys.symbol.play')), content:  $r('app.string.unPause_task') }).onClick(() => {
+          this.defaultAria2 && RpcService.unpauseTask(this.defaultAria2, $$.task.gid!)
+        })
+      }
       MenuItem({ symbolStartIcon: new SymbolGlyphModifier($r('sys.symbol.trash')), content: $r('app.string.delete') }).onClick(() => {
         if ($$.task.status == TaskStatus.complete || $$.task.status == TaskStatus.removed ||
           $$.task.status == TaskStatus.error) {
@@ -89,13 +108,6 @@ export default struct TypedTaskList {
           this.defaultAria2 && RpcService.removeTask(this.defaultAria2, $$.task.gid!, true);
         }
       })
-      MenuItem({ symbolStartIcon: new SymbolGlyphModifier($r('sys.symbol.link')), content:  $r('app.string.task_page_action_copyLink') }).onClick(() => {
-        PasteboardUtil.setDataText($$.task.getUri())
-      })
-      MenuItem({ symbolStartIcon: new SymbolGlyphModifier($r('sys.symbol.info_circle')), content:  $r('app.string.info') })
-        .onClick(() => {
-          router.pushUrl({ url: "pages/taskDetailPage", params: $$.task })
-        })
     }
   }
 }

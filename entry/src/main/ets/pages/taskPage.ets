@@ -49,6 +49,7 @@ struct TaskPage {
       Blank()
       AnimatedIcon({
         icon: $r('app.media.Aria2'),
+        fillColor: $r('app.color.active_color'),
         scaleProp: {
           animatorOptions: {
             duration: 200,

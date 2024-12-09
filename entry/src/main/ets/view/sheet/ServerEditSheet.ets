@@ -71,6 +71,7 @@ export default struct ServerEditSheet {
             message: $r('app.string.server_edit_sheet_dialog_warning_info'),
             isModal: true,
             primaryButton: {
+              fontColor:$r('app.color.active_color'),
               enabled: true,
               value: $r('app.string.confirm'),
               action: () => {
@@ -78,6 +79,7 @@ export default struct ServerEditSheet {
               }
             },
             secondaryButton: {
+              fontColor:$r('app.color.active_color'),
               enabled: true,
               value: $r('app.string.cancel'),
               action: () => {
@@ -216,20 +218,24 @@ export default struct ServerEditSheet {
   buildFooter() {
     Button($r('app.string.server_edit_sheet_save'), {
       type: ButtonType.Normal
-    }).borderRadius(5).width('80%').onClick(() => {
-      if (this.aria2) {
-        this.aria2.name = this.model.get("name") ?? this.aria2.name;
-        this.aria2.url = this.model.get("url") ?? this.aria2.url;
-        this.aria2.secret = this.model.get("secret") ?? this.aria2.secret;
-        Aria2Utils.updateAria2(this.aria2).then(() => {
-          this.close()
-        });
-      } else {
-        let newAria2 = this.createAria2(Aria2Utils.generateId(Const.APP_PREFIX));
-        Aria2Utils.addAria2(newAria2).then(() => {
-          this.close()
-        });
+    }).borderRadius(5).width('80%').backgroundColor($r('app.color.active_color')).onClick(() => {
+      if (this.formRef.value?.validate()) {
+        if (this.aria2) {
+          this.aria2.name = this.model.get("name") ?? this.aria2.name;
+          this.aria2.url = this.model.get("url") ?? this.aria2.url;
+          this.aria2.secret = this.model.get("secret") ?? this.aria2.secret;
+          Aria2Utils.updateAria2(this.aria2).then(() => {
+            this.close()
+          });
+        } else {
+          let newAria2 = this.createAria2(Aria2Utils.generateId(Const.APP_PREFIX));
+          Aria2Utils.addAria2(newAria2).then(() => {
+            this.close()
+          });
+        }
       }
+
+
     })
 
   }

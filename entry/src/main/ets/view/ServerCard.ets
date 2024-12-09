@@ -48,7 +48,7 @@ export struct ServerCard {
   @Builder
   buildServerStateIcon() {
     if (this.model.state == ServerState.connecting) {
-      Image($r('app.media.Debian'))
+      Image($r('app.media.Aria2'))
         .size({ width: 100, height: 100 })
         .rotate({ angle: this.model.rotateAngle })
         .onAppear(() => {

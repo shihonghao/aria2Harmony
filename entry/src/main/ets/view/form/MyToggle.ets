@@ -17,7 +17,7 @@ export default struct MyToggle {
           this.value = isOn ? 'true' : 'false'
           this.eventOption?.onChange && this.eventOption.onChange(this.value);
         }
-      }).enabled(!this.readOnly).alignSelf(ItemAlign.End)
+      }).enabled(!this.readOnly).alignSelf(ItemAlign.End).selectedColor($r('app.color.active_color'))
     }.width('100%')
   }
 }

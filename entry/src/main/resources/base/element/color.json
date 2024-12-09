@@ -23,6 +23,10 @@
     {
       "name": "inactive_color",
       "value": "#FFCBC7C7"
+    },
+    {
+      "name": "item_title_font",
+      "value": "#E6000000"
     }
   ]
 }

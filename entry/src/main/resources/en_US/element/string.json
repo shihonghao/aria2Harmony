@@ -1515,61 +1515,90 @@
     {
       "name": "task_name",
       "value": "Task name"
-    }
-  ,
+    },
     {
       "name": "task_size",
       "value": "Size"
-    }
-  ,
+    },
     {
       "name": "task_status",
       "value": "Status"
-    }
-  ,
+    },
     {
       "name": "task_process",
       "value": "Process"
-    }
-  ,
+    },
     {
       "name": "share_ratio",
       "value": "Share ratio"
-    }
-  ,
+    },
     {
       "name": "seeders_connections",
       "value": "Seeders connections"
-    }
-  ,
+    },
     {
       "name": "creation_date",
       "value": "Creation date"
-    }
-  ,
+    },
     {
       "name": "info_hash",
       "value": "Info hash"
-    }
-  ,
+    },
     {
       "name": "remain_time",
       "value": "Remain time"
-    }
-  ,
+    },
     {
       "name": "connections",
       "value": "Connections"
-    }
-  ,
+    },
     {
       "name": "download_url",
       "value": "DownloadUrl"
-    }
-  ,
+    },
     {
       "name": "download_path",
       "value": "DownloadPath"
+    },
+    {
+      "name": "EntryFormAbility_desc",
+      "value": "form_description"
+    },
+    {
+      "name": "EntryFormAbility_label",
+      "value": "form_label"
+    },
+    {
+      "name": "widget_desc",
+      "value": "This is a service widget."
+    },
+    {
+      "name": "widget_display_name",
+      "value": "widget"
+    },
+    {
+      "name": "please_add_aria2",
+      "value": "Please add your server"
+    },
+    {
+      "name": "please_select_aria2",
+      "value": "Please select server"
+    },
+    {
+      "name": "unPause_task",
+      "value": "Run"
+    },
+    {
+      "name": "pause_task",
+      "value": "Pause"
+    },
+    {
+      "name": "theme_mode",
+      "value": "Theme"
+    },
+    {
+      "name": "language",
+      "value": "Language"
     }
   ]
 }

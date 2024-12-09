@@ -16,7 +16,7 @@ export default class EntryAbility extends UIAbility {
 
   onConfigurationUpdate(newConfig: Configuration): void {
     AppStorage.has('language') && AppStorage.setOrCreate('language', newConfig.language);
-    AppStorage.has('language') && AppStorage.setOrCreate('themeMode', newConfig.colorMode?.valueOf());
+    AppStorage.has('themeMode') && AppStorage.setOrCreate('themeMode', newConfig.colorMode?.valueOf());
   }
 
   onDestroy(): void {
@@ -65,6 +65,8 @@ export default class EntryAbility extends UIAbility {
         PersistentStorage.persistProp<number>("themeMode", -1)
         PersistentStorage.persistProp<number>("refreshInterval", 1000)
         let themeMode = AppStorage.get<number>("themeMode");
+        let language = AppStorage.get<string>("language");
+        this.context.getApplicationContext().setLanguage(language)
         this.context.getApplicationContext()
           .setColorMode(themeMode == 1 ? ConfigurationConstant.ColorMode.COLOR_MODE_LIGHT :
           ConfigurationConstant.ColorMode.COLOR_MODE_DARK)
