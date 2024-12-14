@@ -111,8 +111,8 @@ export default struct SettingsSheet {
       .padding(20)
       .borderRadius(10)
       .height('100%')
-    }.title('设置').titleMode(NavigationTitleMode.Mini)
-    .margin({ top: 10 }).expandSafeArea([SafeAreaType.SYSTEM], [SafeAreaEdge.TOP, SafeAreaEdge.BOTTOM])
+    }.backgroundColor($r('app.color.app_background_color')).title('设置').titleMode(NavigationTitleMode.Mini)
+    .padding({ top: 10 }).expandSafeArea([SafeAreaType.SYSTEM], [SafeAreaEdge.TOP, SafeAreaEdge.BOTTOM])
   }
 
   open(): void {

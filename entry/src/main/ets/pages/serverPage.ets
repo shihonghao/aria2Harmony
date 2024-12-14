@@ -8,6 +8,7 @@ import { router, SymbolGlyphModifier } from '@kit.ArkUI';
 import ComponentRef from '../view/ComponentRef';
 import { ConfigurationConstant } from '@kit.AbilityKit';
 import SettingsSheet from '../view/sheet/SettingsSheet';
+import UIUtil from '../utils/UIUtil';
 
 
 @Entry
@@ -54,14 +55,18 @@ struct ServerPage {
             }
           }
         } else {
-          Stack() {
+          // Stack() {
+          Column({ space: 10 }) {
+            Text($r('app.string.please_add_aria2'))
             Button($r('app.string.add'), {
               type: ButtonType.Normal
             }).width('80%')
               .borderRadius(5).onClick(() => {
               this.serverEditSheetRef.value?.open();
             }).backgroundColor($r('app.color.active_color'))
-          }.position({ x: '50%', y: '40%' }).markAnchor({ x: '50%' })
+          }.height('80%').justifyContent(FlexAlign.Center)
+
+          // }.position({ x: '50%', y: '40%' }).markAnchor({ x: '50%' })
 
         }
       }
@@ -108,32 +113,23 @@ struct ServerPage {
   @Builder
   buildMenus() {
     Row() {
-
-      AnimatedIcon({
-        icon: $r('app.media.Aria2'),
-        fillColor: $r('app.color.active_color'),
-        scaleProp: {
-          animatorOptions: {
-            duration: 200,
-            easing: "linear",
-            delay: 0,
-            fill: "forwards",
-            direction: "alternate",
-            iterations: 2,
-            begin: 1,
-            end: 0.5
-          },
-          initial: { x: 1, y: 1 },
-          valueMapper: (data) => {
-            return { x: data, y: data }
-          }
-        }
-      })
-        .size({ width: 40, height: 40 }).bindMenu([
+      Button({
+        type: ButtonType.Circle,
+        buttonStyle: ButtonStyleMode.NORMAL
+      }) {
+        Image($r('app.media.Aria2')).size({ width: 55, height: 55 }).clickEffect({
+          level: ClickEffectLevel.MIDDLE,
+          scale: 0.3
+        })
+      }.bindMenu([
         {
           symbolIcon: new SymbolGlyphModifier($r('sys.symbol.streak_jump')),
           value: $r('app.string.go_task'),
           action: () => {
+            if (!this.defaultAria2) {
+              UIUtil.showConfirmAlertDialog($r('app.string.please_select_aria2'));
+              return;
+            }
             router.pushUrl({
               url: "pages/taskPage"
             })
@@ -175,11 +171,11 @@ struct ServerPage {
   updateTitle(propName: string) {
     let oriTitle = this.title;
     if (this.aria2s.size == 0) {
-      this.title = $r('app.string.please_add_aria2')
+      this.title = $r('app.string.go_servers')
     } else if (this.defaultAria2?.name) {
       this.title = this.defaultAria2.name;
     } else {
-      this.title = $r('app.string.please_select_aria2')
+      this.title = $r('app.string.go_servers')
     }
     if (this.title != oriTitle) {
       this.toggle = !this.toggle;

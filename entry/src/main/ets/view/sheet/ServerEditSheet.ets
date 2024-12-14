@@ -6,6 +6,7 @@ import LoadingWidget from '../LoadingWidget';
 import { Aria2Utils } from '../../utils/Aria2Utils';
 import Const from '../../static/Const';
 import ComponentRef from '../ComponentRef';
+import { Aria2Keys } from '../../static/PersistentKeys';
 
 @Component
 export default struct ServerEditSheet {
@@ -158,8 +159,8 @@ export default struct ServerEditSheet {
           groups: [
             {
               option: {
-                header: $r('app.string.server_edit_sheet_server_info'),
-                footer: '服务器地址格式为：http(s)://example.com:6800/jsonrpc \n请先测试服务器地址和密钥是否正确，再保存。'
+                header: $r("app.string.server_edit_sheet_header"),
+                footer: $r('app.string.server_edit_sheet_footer')
               },
               children: [
                 {
@@ -229,6 +230,10 @@ export default struct ServerEditSheet {
           });
         } else {
           let newAria2 = this.createAria2(Aria2Utils.generateId(Const.APP_PREFIX));
+          // let aria2s = AppStorage.get<Map<string, Aria2>>(Aria2Keys.ARIA2S);
+          // if (aria2s && aria2s.size == 1) {
+          //   newAria2.isDefault = true;
+          // }
           Aria2Utils.addAria2(newAria2).then(() => {
             this.close()
           });

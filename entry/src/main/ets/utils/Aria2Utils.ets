@@ -4,6 +4,7 @@ import Aria2Mapper from '../model/Aria2Mapper';
 import { Aria2Keys } from '../static/PersistentKeys';
 
 export class Aria2Utils {
+
   static generateId(prefix: string): string {
     let sourceId = prefix + '_' + Math.round(new Date().getTime() / 1000) + '_' + Math.random();
     let hashedId = Base64Util.encodeToStrSync(StrUtil.strToUint8Array(sourceId));

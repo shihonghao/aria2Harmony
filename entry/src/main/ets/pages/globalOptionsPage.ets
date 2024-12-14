@@ -74,6 +74,6 @@ struct GlobalOptionsPage {
           finishBuilder: this.buildFinish,
         })
       }.width('100%').height('100%')
-    }.title(this.aria2?.name).backButtonIcon($r('app.media.Aria2')).titleMode(NavigationTitleMode.Mini)
+    }.title(this.aria2?.name).backButtonIcon($r("app.media.window_icon")).titleMode(NavigationTitleMode.Mini)
   }
 }

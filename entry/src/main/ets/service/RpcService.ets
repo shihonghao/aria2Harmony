@@ -261,7 +261,7 @@ export default class RpcService {
     needSecret?: boolean): Promise<Result<string>> {
     return new Promise<Result<string>>((resolve, reject) => {
       let args: Array<Aria2ParamType> = [];
-      if (aria2.secret != null && needSecret) {
+      if (aria2.secret != null || needSecret) {
         args.push(`token:${aria2.secret}`);
       }
       if (params) {

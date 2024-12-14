@@ -93,7 +93,7 @@
       "value": "Dark"
     },
     {
-      "name": "server_edit_sheet_server_info",
+      "name": "server_edit_sheet_header",
       "value": "Server Information"
     },
     {
@@ -1599,6 +1599,14 @@
     {
       "name": "language",
       "value": "Language"
+    },
+    {
+      "name": "notice",
+      "value": "Notice"
+    },
+    {
+      "name": "server_edit_sheet_footer",
+      "value": "The server address format \nhttp(s)://example.com:6800/jsonrpc \nPlease test whether the server address and key are correct before saving"
     }
   ]
 }

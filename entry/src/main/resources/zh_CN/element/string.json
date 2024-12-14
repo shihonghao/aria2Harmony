@@ -93,7 +93,7 @@
       "value": "夜间模式"
     },
     {
-      "name": "server_edit_sheet_server_info",
+      "name": "server_edit_sheet_header",
       "value": "服务器信息"
     },
     {
@@ -1599,6 +1599,14 @@
     {
       "name": "language",
       "value": "语言"
+    },
+    {
+      "name": "notice",
+      "value": "提醒"
+    },
+    {
+      "name": "server_edit_sheet_footer",
+      "value": "服务器地址格式为\nhttp(s)://example.com:6800/jsonrpc \n请先测试服务器地址和密钥是否正确，再保存"
     }
   ]
 }

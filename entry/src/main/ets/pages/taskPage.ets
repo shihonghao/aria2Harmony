@@ -47,27 +47,15 @@ struct TaskPage {
   buildMenus() {
     Row() {
       Blank()
-      AnimatedIcon({
-        icon: $r('app.media.Aria2'),
-        fillColor: $r('app.color.active_color'),
-        scaleProp: {
-          animatorOptions: {
-            duration: 200,
-            easing: "linear",
-            delay: 0,
-            fill: "forwards",
-            direction: "alternate",
-            iterations: 2,
-            begin: 1,
-            end: 0.5
-          },
-          initial: { x: 1, y: 1 },
-          valueMapper: (data) => {
-            return { x: data, y: data }
-          }
-        }
-      })
-        .size({ width: 40, height: 40 }).bindMenu(this.getActionMenu())
+      Button({
+        type: ButtonType.Circle,
+        buttonStyle: ButtonStyleMode.NORMAL
+      }) {
+        Image($r('app.media.Aria2')).size({ width: 55, height: 55 }).clickEffect({
+          level: ClickEffectLevel.MIDDLE,
+          scale: 0.3
+        })
+      }.bindMenu(this.getActionMenu())
     }.padding({ left: 20, right: 20, top: 10 }).width('100%')
   }
 

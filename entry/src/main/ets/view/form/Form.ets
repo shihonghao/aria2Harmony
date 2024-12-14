@@ -216,12 +216,17 @@ export default struct Form {
             }.padding(20).margin({ bottom: 20 })
             .backgroundColor($r('app.color.card_background_color'))
             .borderRadius(10)
+
+            ListItem() {
+              Text(group.option.footer).fontSize(12).opacity(0.5).margin({ bottom: 10, left: 10 })
+            }
+
           }
           )
         }.margin(20)
 
         this.footer()
-      }
+      }.height('100%')
     }.scrollable(ScrollDirection.Vertical).scrollBar(BarState.Off).backgroundColor($r('app.color.app_background_color'))
   }
 }

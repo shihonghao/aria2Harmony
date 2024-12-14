@@ -34,8 +34,8 @@
         "srcEntry": "./ets/ability/EntryAbility.ets",
         "description": "$string:EntryAbility_desc",
         "icon": "$media:layered_image",
-        "label": "$string:EntryAbility_label",
-        "startWindowIcon": "$media:startIcon",
+        "label": "$string:app_name",
+        "startWindowIcon": "$media:window_icon",
         "startWindowBackground": "$color:app_background_color",
         "exported": true,
         "skills": [
