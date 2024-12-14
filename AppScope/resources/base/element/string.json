@@ -3,6 +3,10 @@
     {
       "name": "app_name",
       "value": "Aria2Client"
+    },
+    {
+      "name": "app_version",
+      "value": "1.0.0"
     }
   ]
 }

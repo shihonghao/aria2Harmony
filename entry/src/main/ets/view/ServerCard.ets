@@ -48,7 +48,7 @@ export struct ServerCard {
   @Builder
   buildServerStateIcon() {
     if (this.model.state == ServerState.connecting) {
-      Image($r("app.media.window_icon"))
+      Image($r("app.media.Aria2"))
         .size({ width: 100, height: 100 })
         .rotate({ angle: this.model.rotateAngle })
         .onAppear(() => {
@@ -58,7 +58,7 @@ export struct ServerCard {
           }, () => {
             this.model.rotateAngle += 360
           })
-        }).fillColor($r('app.color.active_color'))
+        })
     } else if (this.model.state == ServerState.connected) {
       Image($r("app.media.wifi_line")).opacity(0.2).fillColor(Color.Blue)
         .size({ width: 100, height: 100 }).fillColor($r('app.color.active_color'))

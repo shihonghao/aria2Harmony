@@ -1,7 +1,7 @@
 {
   "app": {
     "bundleName": "com.s2h.aria2Harmony",
-    "vendor": "example",
+    "vendor": "s2h",
     "versionCode": 1000000,
     "versionName": "1.0.0",
     "icon": "$media:window_icon",

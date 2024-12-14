@@ -73,7 +73,7 @@ export struct TaskCard {
 
             Row({space:5}) {
               Text(this.task.getRemainTime())
-              Image($r('sys.media.ohos_ic_public_clock')).size({ width: 18, height: 18 }).fillColor($r('app.color.common_icon_color'))
+              Image($r('app.media.clock')).size({ width: 18, height: 18 })
             }
           }else {
             Row() {

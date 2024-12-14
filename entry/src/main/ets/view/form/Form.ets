@@ -223,7 +223,7 @@ export default struct Form {
 
           }
           )
-        }.margin(20)
+        }.margin(20).scrollBar(BarState.Off)
 
         this.footer()
       }.height('100%')

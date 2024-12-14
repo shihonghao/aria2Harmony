@@ -5,13 +5,13 @@
         "name": "default",
         "type": "HarmonyOS",
         "material": {
-          "certpath": "/Users/shihonghao/.ohos/config/default_aria2Harmony_4sNl0UOfsYigTImTXftSLsVJHOV_OGu66uFSyqUYloI=.cer",
-          "storePassword": "0000001B8EF3E21DBBF010DB27AB4E791EC4F2E66268E12DBB5E2CBFE5EBDFB3DDDD75B8FC1B60400B3AFA",
-          "keyAlias": "debugKey",
-          "keyPassword": "0000001B229BFC44284FBD180CE402A5EED8DD9C4F455F4E6DC0C072C1C102EDC6AEC6665717C0A3B1E9F6",
-          "profile": "/Users/shihonghao/.ohos/config/default_aria2Harmony_4sNl0UOfsYigTImTXftSLsVJHOV_OGu66uFSyqUYloI=.p7b",
+          "storePassword": "0000001AF355CE8C6A34D561BB288E6A71F813B9CF12AF6E0C86071786B63A932107A9061134B9419AE3",
+          "certpath": "/Users/shihonghao/Downloads/release.cer",
+          "keyAlias": "release",
+          "keyPassword": "0000001AC89A0B91F8A34BD7EB5DB6EDE829AFB3DC1E1EE3BA4B461D6E1A05F067AD8D71C6FB74DBD424",
+          "profile": "/Users/shihonghao/Downloads/release_macRelease.p7b",
           "signAlg": "SHA256withECDSA",
-          "storeFile": "/Users/shihonghao/.ohos/config/default_aria2Harmony_4sNl0UOfsYigTImTXftSLsVJHOV_OGu66uFSyqUYloI=.p12"
+          "storeFile": "/Users/shihonghao/release.p12"
         }
       }
     ],
@@ -19,7 +19,7 @@
       {
         "name": "default",
         "signingConfig": "default",
-        "compatibleSdkVersion": "5.0.0(12)",
+        "compatibleSdkVersion": "5.0.1(13)",
         "runtimeOS": "HarmonyOS",
         "buildOption": {
           "strictMode": {
