@@ -10,29 +10,18 @@ import { Aria2Keys } from '../../static/PersistentKeys';
 
 @Component
 export default struct ServerEditSheet {
-  serverEditSheetRef?: ComponentRef<ServerEditSheet>
+  ref?: ComponentRef<ServerEditSheet>
   @Prop aria2: Aria2;
   @State showSheet: boolean = false;
   @State name?: string = undefined;
-  dialogId?: number;
   @State model: Map<string, string> = new Map([
     ['name', ""], ['url', ""], ['secret', ""]
   ])
-  formRef: ComponentRef<Form> = ComponentRef.useRef<Form>()
-
-  aboutToDisappear(): void {
-
-    console.log("close")
-  }
-
-  @Builder
-  nothingToBuild() {
-  }
-
-  @BuilderParam childBuilder: () => void = this.nothingToBuild;
+  private formRef: ComponentRef<Form> = ComponentRef.useRef<Form>()
+  private dialogId?: number;
 
   aboutToAppear(): void {
-    this.serverEditSheetRef?.bind(this)
+    this.ref?.bind(this)
 
   }
 
@@ -50,46 +39,43 @@ export default struct ServerEditSheet {
 
   build() {
     Column() {
-      this.childBuilder()
-    }.onClick(() => {
-      this.open();
-    }).bindSheet(this.showSheet, this.buildContent()
-      , {
-        onAppear: () => {
-          this.initModel();
-        },
-        onDisappear: () => {
-          this.model.clear();
-        },
-        height: SheetSize.LARGE,
-        blurStyle: BlurStyle.Thin,
-        // title: this.buildTopBar(),
-        showClose: false,
-        backgroundColor: $r('app.color.app_background_color'),
-        onWillDismiss: (action) => {
-          this.getUIContext().showAlertDialog({
-            title: $r('app.string.warning'),
-            message: $r('app.string.server_edit_sheet_dialog_warning_info'),
-            isModal: true,
-            primaryButton: {
-              fontColor:$r('app.color.active_color'),
-              enabled: true,
-              value: $r('app.string.confirm'),
-              action: () => {
-                this.close();
-              }
-            },
-            secondaryButton: {
-              fontColor:$r('app.color.active_color'),
-              enabled: true,
-              value: $r('app.string.cancel'),
-              action: () => {
-
-              }
+    }.bindSheet(this.showSheet, this.buildContent(), {
+      onAppear: () => {
+        this.initModel();
+      },
+      onDisappear: () => {
+        this.model.clear();
+      },
+      preferType: SheetType.BOTTOM,
+      height: SheetSize.LARGE,
+      blurStyle: BlurStyle.Thin,
+      // title: this.buildTopBar(),
+      showClose: false,
+      backgroundColor: $r('app.color.app_background_color'),
+      onWillDismiss: (action) => {
+        this.getUIContext().showAlertDialog({
+          title: $r('app.string.warning'),
+          message: $r('app.string.server_edit_sheet_dialog_warning_info'),
+          isModal: true,
+          primaryButton: {
+            fontColor: $r('app.color.active_color'),
+            enabled: true,
+            value: $r('app.string.confirm'),
+            action: () => {
+              this.close();
             }
-          });
-        }
-      })
+          },
+          secondaryButton: {
+            fontColor: $r('app.color.active_color'),
+            enabled: true,
+            value: $r('app.string.cancel'),
+            action: () => {
+
+            }
+          }
+        });
+      }
+    })
   }
 
   @Builder

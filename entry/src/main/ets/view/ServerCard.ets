@@ -78,7 +78,7 @@ export struct ServerCard {
     Column() {
       Stack() {
         ServerEditSheet({
-          aria2: this.aria2, serverEditSheetRef: this.serverEditSheetRef
+          aria2: this.aria2, ref: this.serverEditSheetRef
         })
         this.buildServerStateIcon()
         Text(this.aria2.name).position({ left: 20, bottom: 20 }).fontSize(30)
