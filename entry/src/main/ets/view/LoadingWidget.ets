@@ -31,15 +31,12 @@ export default struct LoadingWidget {
   buildError() {
     Column() {
       Image($r('app.media.error')).constraintSize({
-        maxWidth: 100,
-        maxHeight: 100
-      }).constraintSize({
         maxWidth: 60,
         maxHeight: 60
       })
       Text(this.failedMessage).margin({top:20})
     }.position({ x: '50%', y: '50%' })
-    .markAnchor({ x: '50%', }).transition(MyTransitionEffects.OPACITY)
+    .markAnchor({ x: '50%',y: '50%' }).transition(MyTransitionEffects.OPACITY)
   }
 
   @LocalBuilder
