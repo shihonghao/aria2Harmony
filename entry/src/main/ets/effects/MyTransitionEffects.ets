@@ -20,6 +20,8 @@ export  default  class  MyTransitionEffects{
     duration:500
   })
 
-
+  static SLIDE_TOP:object=TransitionEffect.move(TransitionEdge.TOP).animation({
+    duration:500
+  })
 
 }

@@ -1612,6 +1612,22 @@
     {
       "name": "notice",
       "value": "提醒"
+    },
+    {
+      "name": "welcome",
+      "value": "欢迎使用"
+    },
+    {
+      "name": "iAgree",
+      "value": "我同意"
+    },
+    {
+      "name": "userAgreement",
+      "value": "《用户协议》"
+    },
+    {
+      "name": "privacyPolicy",
+      "value": "《隐私条款》"
     }
   ]
 }

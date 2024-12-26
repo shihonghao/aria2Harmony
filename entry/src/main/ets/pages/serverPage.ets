@@ -13,7 +13,7 @@ import UIUtil from '../utils/UIUtil';
 
 @Entry
 @Component
-struct ServerPage {
+export struct ServerPage {
   @Watch('updateTitle') @StorageProp(Aria2Keys.DEFAULT) defaultAria2: Aria2 | undefined = undefined;
   @StorageProp(Aria2Keys.ARIA2S) aria2s: Map<string, Aria2> = new Map();
   title: string | Resource = "Please add an Aria2";
@@ -29,53 +29,53 @@ struct ServerPage {
   }
 
   build() {
-    Stack() {
-      SettingsSheet({
-        ref: this.settingSheetRef
-      })
-      Navigation() {
-        ServerEditSheet({
-          serverEditSheetRef: this.serverEditSheetRef
+      Stack() {
+        SettingsSheet({
+          ref: this.settingSheetRef
         })
-        if (this.aria2s.size > 0) {
-          Scroll() {
-            Column() {
-              Swiper() {
-                ForEach(this.getAria2List(), (item: Aria2, index: number) => {
-                  ServerCard({ aria2: item })
-                    .margin({
-                      left: 20,
-                      right: 20,
-                      top: 5,
-                      bottom: 10
-                    })
-                })
-              }.loop(false).indicator(false)
+        Navigation() {
+          ServerEditSheet({
+            ref: this.serverEditSheetRef
+          })
+          if (this.aria2s.size > 0) {
+            Scroll() {
+              Column() {
+                Swiper() {
+                  ForEach(this.getAria2List(), (item: Aria2, index: number) => {
+                    ServerCard({ aria2: item })
+                      .margin({
+                        left: 20,
+                        right: 20,
+                        top: 5,
+                        bottom: 10
+                      })
+                  })
+                }.loop(false).indicator(false)
 
+              }
             }
+          } else {
+            // Stack() {
+            Column({ space: 10 }) {
+              Text($r('app.string.please_add_aria2'))
+              Button($r('app.string.add'), {
+                type: ButtonType.Normal
+              }).width('80%')
+                .borderRadius(5).onClick(() => {
+                this.serverEditSheetRef.value?.open();
+              }).backgroundColor($r('app.color.active_color'))
+            }.height('80%').justifyContent(FlexAlign.Center)
+
+            // }.position({ x: '50%', y: '40%' }).markAnchor({ x: '50%' })
+
           }
-        } else {
-          // Stack() {
-          Column({ space: 10 }) {
-            Text($r('app.string.please_add_aria2'))
-            Button($r('app.string.add'), {
-              type: ButtonType.Normal
-            }).width('80%')
-              .borderRadius(5).onClick(() => {
-              this.serverEditSheetRef.value?.open();
-            }).backgroundColor($r('app.color.active_color'))
-          }.height('80%').justifyContent(FlexAlign.Center)
-
-          // }.position({ x: '50%', y: '40%' }).markAnchor({ x: '50%' })
-
         }
-      }
-      .menus(this.buildMenus())
-      .title(this.buildTitle())
-      .titleMode(NavigationTitleMode.Full)
-      .hideBackButton(true)
-      .backgroundColor($r('app.color.app_background_color'))
-    }
+        .menus(this.buildMenus())
+        .title(this.buildTitle())
+        .titleMode(NavigationTitleMode.Full)
+        .hideBackButton(true)
+        .backgroundColor($r('app.color.app_background_color'))
+      }.height('100%')
   }
 
   getAria2List(): Array<Aria2> {

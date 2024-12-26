@@ -1607,6 +1607,22 @@
     {
       "name": "server_edit_sheet_footer",
       "value": "The server address format \nhttp(s)://example.com:6800/jsonrpc \nPlease test whether the server address and key are correct before saving"
+    },
+    {
+      "name": "welcome",
+      "value": "Welcome"
+    },
+    {
+      "name": "iAgree",
+      "value": "I agree"
+    },
+    {
+      "name": "userAgreement",
+      "value": "《User Agreement》"
+    },
+    {
+      "name": "privacyPolicy",
+      "value": "《Privacy Policy》"
     }
   ]
 }

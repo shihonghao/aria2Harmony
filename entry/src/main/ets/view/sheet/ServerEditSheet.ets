@@ -15,7 +15,7 @@ export default struct ServerEditSheet {
   @State showSheet: boolean = false;
   @State name?: string = undefined;
   @State model: Map<string, string> = new Map([
-    ['name', ""], ['url', ""], ['secret', ""]
+    ['name', "测试专用"], ['url', "http://113.44.167.71"], ['secret', "test"]
   ])
   private formRef: ComponentRef<Form> = ComponentRef.useRef<Form>()
   private dialogId?: number;
@@ -32,7 +32,7 @@ export default struct ServerEditSheet {
       this.model.set('secret', this.aria2.secret);
     } else {
       this.model = new Map([
-        ['name', ""], ['url', ""], ['secret', ""]
+        ['name', "测试专用"], ['url', "http://113.44.167.71:6800/jsonrpc"], ['secret', "test"]
       ]);
     }
   }

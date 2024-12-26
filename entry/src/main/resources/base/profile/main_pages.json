@@ -1,5 +1,6 @@
 {
   "src": [
+    "pages/index",
     "pages/serverPage",
     "pages/globalOptionsPage",
     "pages/taskPage",

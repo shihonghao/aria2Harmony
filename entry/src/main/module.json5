@@ -7,23 +7,26 @@
     "deviceTypes": [
       "phone",
     ],
+    "routerMap": "$profile:route_map",
     requestPermissions: [
       {
         'name': 'ohos.permission.INTERNET',
         'reason': '$string:Apply_Internet_Reason',
         'usedScene': {
-          "abilities": ['EntryAbility'],
+          "abilities": [
+            'EntryAbility'
+          ],
           "when": "always"
         }
       },
-//      {
-//        'name': 'ohos.permission.READ_PASTEBOARD',
-//        'reason': '$string:Apply_Internet_Reason',
-//        'usedScene': {
-//          "abilities": ['EntryAbility'],
-//          "when": "always"
-//        }
-//      }
+      //      {
+      //        'name': 'ohos.permission.READ_PASTEBOARD',
+      //        'reason': '$string:Apply_Internet_Reason',
+      //        'usedScene': {
+      //          "abilities": ['EntryAbility'],
+      //          "when": "always"
+      //        }
+      //      }
     ],
     "deliveryWithInstall": true,
     "installationFree": false,

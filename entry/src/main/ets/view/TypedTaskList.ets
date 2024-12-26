@@ -83,9 +83,9 @@ export default struct TypedTaskList {
   buildContextMenu($$: GeneratedTypeLiteralInterface_2) {
     Menu() {
 
-      MenuItem({ symbolStartIcon: new SymbolGlyphModifier($r('sys.symbol.link')), content:  $r('app.string.task_page_action_copyLink') }).onClick(() => {
-        PasteboardUtil.setDataText($$.task.getUri())
-      })
+      // MenuItem({ symbolStartIcon: new SymbolGlyphModifier($r('sys.symbol.link')), content:  $r('app.string.task_page_action_copyLink') }).onClick(() => {
+      //   PasteboardUtil.setDataText($$.task.getUri())
+      // })
       // MenuItem({ symbolStartIcon: new SymbolGlyphModifier($r('sys.symbol.info_circle')), content:  $r('app.string.info') })
       //   .onClick(() => {
       //     router.pushUrl({ url: "pages/taskDetailPage", params: $$.task })

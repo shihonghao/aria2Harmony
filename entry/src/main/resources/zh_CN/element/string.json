@@ -1607,6 +1607,22 @@
     {
       "name": "server_edit_sheet_footer",
       "value": "服务器地址格式为\nhttp(s)://example.com:6800/jsonrpc \n请先测试服务器地址和密钥是否正确，再保存"
+    },
+    {
+      "name": "welcome",
+      "value": "欢迎使用"
+    },
+    {
+      "name": "iAgree",
+      "value": "我同意"
+    },
+    {
+      "name": "userAgreement",
+      "value": "《用户协议》"
+    },
+    {
+      "name": "privacyPolicy",
+      "value": "《隐私条款》"
     }
   ]
 }

@@ -1,7 +1,7 @@
 import { AbilityConstant, Configuration, ConfigurationConstant, UIAbility, Want } from '@kit.AbilityKit';
 import { hilog } from '@kit.PerformanceAnalysisKit';
 import { display, window } from '@kit.ArkUI';
-import { Aria2Keys } from '../static/PersistentKeys';
+import { Aria2Keys, SettingKeys } from '../static/PersistentKeys';
 import DatabaseService from '../service/DatabaseService';
 import Aria2 from '../model/Aria2';
 import { relationalStore } from '@kit.ArkData';
@@ -9,6 +9,7 @@ import Aria2Mapper from '../model/Aria2Mapper';
 import { StrUtil } from '@pura/harmony-utils';
 import Aria2Service from '../service/Aria2Service';
 import { BreakpointConstants } from '../static/BreakpointConstants';
+import { bundleManager } from '@kit.AbilityKit';
 
 export default class EntryAbility extends UIAbility {
   private windowObj?: window.Window;
@@ -40,13 +41,17 @@ export default class EntryAbility extends UIAbility {
     this.loadFormResource()
     // 初始化数据库
     this.initStorage().then((_) => {
-      windowStage.loadContent('pages/serverPage', (err) => {
+
+      let url = 'pages/index';
+
+      windowStage.loadContent(url, (err) => {
         if (err.code) {
           hilog.error(0x0000, 'appStartTag', 'Failed to load the content. Cause: %{public}s',
             JSON.stringify(err) ?? '');
           return;
         }
         //初始化设置
+        PersistentStorage.persistProp<number>(SettingKeys.FIRST_LAUNCH_VERSION, -1)
         PersistentStorage.persistProp<string>("language", "zh-Hans-CN")
         PersistentStorage.persistProp<number>("themeMode", -1)
         PersistentStorage.persistProp<number>("refreshInterval", 1000)
